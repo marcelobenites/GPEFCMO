@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="corpo">
+
+     <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Contas de Usuários</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+          &nbsp;<a href=""  data-target="#modal-basico" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a> 
+       </ol>
+<!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body" style="text-align: justify"> 
+              Abaixo estão listados os usuários cadastrados para sua unidade militar e subordinadas.
+              <a sec:authorize="hasAuthority('SUPERADMIN')">Também estão disponíveis para o seu perfil de SUPERADMINISTRADOR opções para inclusão, exclusão, e edição de contas de usuários.</a>
+              <a sec:authorize="hasAuthority('ADMIN')">Também estão disponíveis para o seu perfil de ADMINISTRADOR opções para inclusão, exclusão, e edição de contas de usuários.</a>                           
+           
+          </div>
+          <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                                             data-dismiss="modal">Fechar</button>             
+          </div>
+      </div>
+   </div>
+</div> <hr>
+        <div sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')">
+            <h6><strong>Incluir Novo usuário</strong></h6>
+            <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')" class="btn btn-secondary btn-dark btn-sm" th:href="@{/userControl/register}">Incluir</a>
+        </div>
+                   
+           
+        <br> 
+            
+        <div th:if="!${#strings.isEmpty(message)}" class="row">
+          <div class="col-4">   
+            <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+                <div class="alert alert-danger">
+                    <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Relação de usuários</div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+        <table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th>Nome de usuario</th>
+                <th>Perfil de Acesso</th>
+                <th>Unidade</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr sec:authorize="hasAuthority('SUPERADMIN')" th:each="u : ${users}">
+                    <td th:text="${u.username}"></td>                                     
+                    <td th:text="${u.classe}"></td>    
+                    <td th:text="${u.military.militaryUnit.MU_initials}"></td>                                   
+                    <!--<td th:text="${u.military.war_name}"></td>-->                    
+                    <td>                    	
+                        <a class="btn btn-secondary btn-sm" th:href="@{/userControl/preUpdate/{id}(id=${u.id})}" >Editar</a>           
+                        <a class="btn btn-secondary btn-sm" th:href="@{/userControl/resetPassword/{id}(id=${u.id})}">Reset de senha</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/userControl/delete/{id}(id=${u.id})}" >Excluir</a>                 
+                        <a class="btn btn-info btn-sm" th:href="@{/userControl/showSingleProfile/{id}(id=${u.id})}">+info</a>
+                        <a th:if="${u.id}==${uid}"><small><i class="fa fa-fw fa-info-circle"></i> Esta é sua conta</small></a>
+                   </td>
+                </tr>
+                 <tr sec:authorize="hasAuthority('ADMIN')" th:if="${u.classe.descricao}!='Super administrador'" th:each="u : ${users}">
+                    <td th:text="${u.username}"></td>
+                    <td th:text="${u.classe}"></td>    
+                    <td th:text="${u.military.militaryUnit.MU_initials}"></td>                                   
+                    <!--<td th:text="${u.military.war_name}"></td>-->                    
+                    <td>                    	
+                        <a class="btn btn-secondary btn-sm" th:href="@{/userControl/preUpdate/{id}(id=${u.id})}" >Editar</a>           
+                        <a class="btn btn-secondary btn-sm" th:href="@{/userControl/resetPassword/{id}(id=${u.id})}">Reset de senha</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/userControl/delete/{id}(id=${u.id})}" >Excluir</a>        
+                        <a class="btn btn-info btn-sm" th:href="@{/userControl/showSingleProfile/{id}(id=${u.id})}">+info</a>
+                        <a th:if="${u.id}==${uid}"><small><i class="fa fa-fw fa-info-circle"></i> Esta é sua conta</small></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+            </div>            
+                
+    </div>    
+</div>
+</div></html>

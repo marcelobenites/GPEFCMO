@@ -1,0 +1,250 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="subContent" th:fragment="subCorpo">
+ 
+    
+    <!--TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="#{title.update.zone}"></strong></a> </li> <br>
+        <i><small>Edição de informações do município. Inclusão/remoção de municípios da área da unidade devem ser solicitadas à equipe de suporte do sistema.</small></i>
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+ 
+    <hr>
+    <div><small><i>(*Campos obrigatórios)</i></small>
+    	<form th:action="@{/zoneControl/update}"  th:object="${zone}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{county_name}"/>
+            <input type="hidden" th:field="*{country_name}"/>
+            <input type="hidden" th:field="*{state_name}"/>
+            <hr>  <h6><strong>Fronteira</strong></h6>
+        <div class="row">
+            <div class="col-4">    
+                    <label th:for="frontier_countries">País fronteiriço: </label>
+                    <input th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{frontier_countries}"></input>
+                    <span th:if="${#fields.hasErrors('frontier_countries')}" th:errors="*{frontier_countries}" class="label label-danger"></span>
+            </div> 
+            <div class="col">
+                <div class="form-group">
+                     <div class="form-group">
+                    <label th:for="currentMUss">Unidade Militar fronteiriça: </label>
+                      <select th:field="*{frontier_militaryUnit.MU_name}" class="custom-select" id="militaryUnity" name="educationDate[]">
+                        <option value=""></option>
+                        <option th:each="currentMUss : ${units}" th:value="${currentMUss.MU_name}" th:text="${currentMUss.MU_name}"></option>       
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">    
+                <label th:for="frontier_type">Tipo de Fronteira: </label>
+                <input th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{frontier_type}"></input>
+                <span th:if="${#fields.hasErrors('frontier_type')}" th:errors="*{frontier_type}" class="label label-danger"></span>
+            </div> 
+        </div>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="frontier_description">Descrição: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{frontier_description}"></textarea>
+                    <span th:if="${#fields.hasErrors('frontier_description')}" th:errors="*{frontier_description}" class="label label-danger"></span>
+                </div> 
+        </div> 
+<br>
+        <hr><h6><strong>Autoridades</strong></h6>
+            <div class="row">
+                <div class="col-4">    
+                    <label th:for="mayor">Prefeito: </label>
+                    <input th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{mayor}"></input>
+                    <span th:if="${#fields.hasErrors('mayor')}" th:errors="*{mayor}" class="label label-danger"></span>
+                </div> 
+                <div class="col-4">    
+                    <label th:for="judge">Juiz: </label>
+                    <input th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{judge}"></input>
+                    <span th:if="${#fields.hasErrors('judge')}" th:errors="*{judge}" class="label label-danger"></span>
+                </div> 
+                <div class="col-4">    
+                    <label th:for="prosecutor">Promotor: </label>
+                    <input th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{prosecutor}"></input>
+                    <span th:if="${#fields.hasErrors('prosecutor')}" th:errors="*{prosecutor}" class="label label-danger"></span>
+                </div> 
+            </div> 
+            <div class="row">
+                <div class="col">    
+                    <label th:for="councilmen">Vereadores: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{councilmen}"></textarea>
+                    <span th:if="${#fields.hasErrors('councilmen')}" th:errors="*{councilmen}" class="label label-danger"></span>
+                </div> 
+            </div> 
+             <div class="row">
+                <div class="col">    
+                    <label th:for="other_authorities">Outras autoridades: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{other_authorities}"></textarea>
+                    <span th:if="${#fields.hasErrors('other_authorities')}" th:errors="*{other_authorities}" class="label label-danger"></span>
+                </div> 
+        </div> 
+<br>
+        <hr><h6><strong>Indígenas</strong></h6> 
+        <div class="row">
+                <div class="col">    
+                    <label th:for="funai_dsei">FUNAI e DSEI: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{funai_dsei}"></textarea>
+                    <span th:if="${#fields.hasErrors('funai_dsei')}" th:errors="*{funai_dsei}" class="label label-danger"></span>
+                </div> 
+        </div> 
+        <div class="row">
+                <div class="col">    
+                    <label th:for="ethnicities">Etnias: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{ethnicities}"></textarea>
+                    <span th:if="${#fields.hasErrors('ethnicities')}" th:errors="*{ethnicities}" class="label label-danger"></span>
+                </div> 
+        </div> 
+        <div class="row">
+                <div class="col">    
+                    <label th:for="problems_with_indigenous">Problemas em áreas indígenas: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{problems_with_indigenous}"></textarea>
+                    <span th:if="${#fields.hasErrors('problems_with_indigenous')}" th:errors="*{problems_with_indigenous}" class="label label-danger"></span>
+                </div> 
+        </div> 
+                
+          <br>
+        <hr><h6><strong>Movimentos reivindicatórios</strong></h6> 
+        <div class="row">
+                <div class="col">    
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{claim_movements}"></textarea>
+                    <span th:if="${#fields.hasErrors('claim_movements')}" th:errors="*{claim_movements}" class="label label-danger"></span>
+                </div> 
+        </div>       
+        <hr><h6><strong>ONGs</strong></h6> 
+        <div class="row">
+                <div class="col">    
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{ngos}"></textarea>
+                    <span th:if="${#fields.hasErrors('ngos')}" th:errors="*{ngos}" class="label label-danger"></span>
+                </div> 
+        </div>       
+          
+                
+    
+        <div class="row">
+                <div class="col">    
+                    <label th:for="security">Segurança <small><i>(ex. Órgãos/representantes)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{security}"></textarea>
+                    <span th:if="${#fields.hasErrors('security')}" th:errors="*{security}" class="label label-danger"></span>
+                </div> 
+       </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="education">Educação <small><i>(ex. Escolas/professores)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{education}"></textarea>
+                    <span th:if="${#fields.hasErrors('education')}" th:errors="*{education}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="health">Saúde <small><i>(ex. Unidades de atendimento/profissionais)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{health}"></textarea>
+                    <span th:if="${#fields.hasErrors('health')}" th:errors="*{health}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="waterSupply">Água <small><i>(ex. Concessionária/Pop atendida)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{waterSupply}"></textarea>
+                    <span th:if="${#fields.hasErrors('waterSupply')}" th:errors="*{waterSupply}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="waterCraft">Saneamento <small><i>(ex. Concessionária/Pop atendida)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{waterCraft}"></textarea>
+                    <span th:if="${#fields.hasErrors('waterCraft')}" th:errors="*{waterCraft}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="communication">Telecomunicações <small><i>(ex. Concessionária/Pop atendida)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{communication}"></textarea>
+                    <span th:if="${#fields.hasErrors('communication')}" th:errors="*{communication}" class="label label-danger"></span>
+                </div> 
+            <br><hr>
+        </div>    
+        <div class="row">
+                <div class="col">    
+                    <label th:for="energy">Energia <small><i>(ex. Concessionária/Pop atendida)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{energy}"></textarea>
+                    <span th:if="${#fields.hasErrors('energy')}" th:errors="*{energy}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="publicTransport">Transporte público <small><i>(ex. Empresas/destinos/horários)</i></small>: </label>                    <label th:for="publicTransport">Transporte público <small><i>(ex. Empresas/destinos/horários)</i></small>: </label>
+
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{publicTransport}"></textarea>                              <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{publicTransport}"></textarea>                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{publicTransport}"></textarea>
+          <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{publicTransport}"></textarea>
+
+            <br>
+        <div class="row">
+                <div class="col">          
+                    <label th:for="highways">Rodovias <small><i>(ex. Pavimento/trafegabilidade/ligações)</i></small>: </label>">
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{highways}"></textarea>
+                    <span th:if="${#fields.hasErrors('highways')}" th:errors="*{highways}" class="label label-danger"></span>
+                    <span th:if="${#fields.hasErrors('publicTransport')}" th:errors="*{publicTransport}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">          
+                    <label th:for="highways">Rodovias <small><i>(ex. Pavimento/trafegabilidade/ligações)</i></small>: </label>">
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{highways}"></textarea>
+                    <span th:if="${#fields.hasErrors('highways')}" th:errors="*{highways}" class="label label-danger"></span>
+            <br>
+        <div class="row">
+                <div class="col">          
+                    <label th:for="highways">Rodovias <small><i>(ex. Pavimento/trafegabilidade/ligações)</i></small>: </label>">
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{highways}"></textarea>
+                    <span th:if="${#fields.hasErrors('highways')}" th:errors="*{highways}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="port">Porto <small><i>(ex. Capacidade/movimento/embarcações)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{port}"></textarea>
+                    <span th:if="${#fields.hasErrors('port')}" th:errors="*{port}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="aerodrome">Aeródromo <small><i>(ex. Comprimento da pista, azimute, pavimento, capacidade de
+operação (tipo de aeronave), recursos (sinalização, iluminação, equipamentos), movimento observado)</i></small>: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{aerodrome}"></textarea>
+                    <span th:if="${#fields.hasErrors('aerodrome')}" th:errors="*{aerodrome}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+        <div class="row">
+                <div class="col">    
+                    <label th:for="other">Outra infraestrutura: </label>
+                    <textarea th:type="text" rows="8"  class="form-control" id="authorities" th:field="*{other}"></textarea>
+                    <span th:if="${#fields.hasErrors('other')}" th:errors="*{other}" class="label label-danger"></span>
+                </div> 
+        </div>    
+            <br>
+            
+            
+        <div class="form-group">
+            <!--TODO urgent bugs: corrigir o erro de atualização de cadastro!--> 
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+           
+        </form>
+        
+        
+        
+    </div>
+
+</div>teste</html>

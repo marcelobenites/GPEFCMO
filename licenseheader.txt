@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} B ADM CMO - Base Administrativa do Comando Militar do Oeste
+${licensePrefix} Desenvolvido por STI (Seção de Tecnologia da Informação)
+${licensePrefix} 2019 - Todos os Direitos Reservados
+<#if licenseLast??>
+${licenseLast}
+</#if>

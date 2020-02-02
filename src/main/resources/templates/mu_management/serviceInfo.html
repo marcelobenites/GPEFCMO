@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+<!--        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="'Item de Suprimento '+${supplyClass.description}+' resumo de informações'" ></strong></a> </li> 
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>
+        </ol>      
+    
+         <br>-->
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-file-text-o"></i> <strong th:text="${serviceType.description}+' - informações'" ></strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+<a th:if="${serviceType.description}=='Outros Serviços'">
+    <strong>Nome do serviço: </strong> <span th:text="${serviceItem.name}"></span><br>
+    <strong>Descrição </strong> <span th:text="${serviceItem.description}"></span><br>
+</a>
+<a th:if="${serviceType.description}=='Água/Esgoto'">
+    <strong>Nome da concessionária: </strong> <span th:text="${serviceItem.name}"></span><br><br>
+    <h5>Serviço de Água</h5><hr>
+    <strong>Tratamento empregado: </strong> <span th:text="${serviceItem.water_treatment}"></span><br>       
+    <strong>Origem da captação: </strong> <span th:text="${serviceItem.water_origin}"></span><br>       
+    <strong>Devolução da captação: </strong> <span th:text="${serviceItem.water_exit}"></span><br>       
+    <strong>Utilização: </strong> <span th:text="${serviceItem.water_use}"></span><br>       
+    <strong>Capacidade (m<sup>3</sup>): </strong> <span th:text="${serviceItem.water_capacity}"></span><br>       
+    <strong>Consumo da unidade (m<sup>3</sup>): </strong> <span th:text="${serviceItem.water_consumption}"></span><br>       
+    <strong>Distância Origem/Armazenagem (Km): </strong> <span th:text="${serviceItem.water_distance}"></span><br>       
+    <strong>Equipamento utilizado: </strong> <span th:text="${serviceItem.water_equipment}"></span><br> <br> <br>       
+    
+    <h5>Serviço de Esgoto</h5><hr> 
+    <strong>Qtd. de residências atendidas:  </strong> <span th:text="${serviceItem.sewage_served_homes}"></span><br>       
+    <strong>Tratamento empregado:  </strong> <span th:text="${serviceItem.sewage_treatment}"></span><br>       
+    <strong>Armazenagem:  </strong> <span th:text="${serviceItem.sewage_storage}"></span><br>       
+    <strong>Forma de devolução ao meio-ambiente:  </strong> <span th:text="${serviceItem.sewage_devolution}"></span><br>       
+    <strong>Sistema utilizado:  </strong> <span th:text="${serviceItem.sewage_serviceType.description}"></span><br>       
+    <strong>Frequência de Manutenção (anual):  </strong> <span th:text="${serviceItem.sewage_maintainment_frequence}"></span><br>       
+    <strong>Distância Descarte/Rede de água (Km):  </strong> <span th:text="${serviceItem.sewage_to_water_distance}"></span><br>       
+       
+        
+    <hr>        
+</a>
+<a th:if="${serviceType.description}=='Coleta de Lixo'">
+    <strong>Nome da concessionária: </strong> <span th:text="${serviceItem.name}"></span><br>
+    <strong>Tipo de tratamento: </strong> <span th:text="${serviceItem.gargage_treatmentType.description}"></span><br>
+    <strong>Distância Depósito/Manancial mais próximo(Km): </strong> <span th:text="${serviceItem.fountain_distance}"></span><br>
+    <strong>Quantidade de residências atendidas: </strong> <span th:text="${serviceItem.served_homes}"></span><br>
+    <strong>Frequência de coleta (em vezes por semana): </strong> <span th:text="${serviceItem.collection_frequency}"></span><br>
+    <strong>Estratégia de retorno ao ambiente e tipo de depósito: </strong> <span th:text="${serviceItem.description}"></span><br>
+</a>
+<a th:if="${serviceType.description}=='Energia Elétrica'">
+    
+</a>
+<a th:if="${serviceType.description}=='Convênios'">
+    
+</a>
+
+
+<strong>Outra informação: </strong> <span th:text="${serviceItem.extra_observation}"></span><br>
+<strong>Última atualização: </strong> <span th:text="${serviceItem.last_update}"></span><br>
+<strong>Responsável pela última atualização: </strong> <span th:text="${serviceItem.mil_modifier.post.abbreviation} +' '+ ${serviceItem.mil_modifier.war_name}"></span><br>
+            </div>
+          </div> 
+        </div>
+    <div>
+                              <a class="btn btn-dark" th:href="@{/structureControl/listStructuralItems/{id}/{serviceType} (id=${serviceItem.mu_owner.id},serviceType=${serviceType.description})}"  >Voltar</a>
+        </div>        
+    </div>  
+     
+</html>

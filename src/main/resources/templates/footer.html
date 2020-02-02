@@ -1,0 +1,28 @@
+<footer class="sticky-footer">
+        <div class="container">
+          <div class="text-center"> <small>Copyright © STI B ADM AP/CMO 2020</small>
+          </div>
+        </div>
+</footer>
+<!-- Scroll to Top Button--> <a class="scroll-to-top rounded" href="#page-top">
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body">Selecione "Encerrar" caso tenha certeza que deseja fechar a sessão.</div>
+            <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                data-dismiss="modal">Cancelar</button> 
+            <form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
+                <button type="submit" class="btn btn-danger">
+                        Sair
+                </button>
+            </form>
+            </div>
+      </div>
+   </div>
+</div>

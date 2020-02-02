@@ -1,0 +1,30 @@
+<!--Layout da página interna à página principal para gerenciamento de PEFs e unidades-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="corpo">
+
+<link type="text/css" rel="stylesheet" th:href="@{/css/ddsmoothmenu.css}"/>
+<!--<link type="text/css" rel="stylesheet" th:href="@{/css/tooplate_style.css}"/>-->
+<!--<link type="text/css" rel="stylesheet" th:href="@{/css/nivo-slider.css}" media="screen"/>-->
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>   
+<script type="text/javascript" th:src="@{/js/ddsmoothmenu.js}"></script> 
+<script type="text/javascript">
+
+ddsmoothmenu.init({
+	mainmenuid: "tooplate_menu", //menu DIV id
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu', //class added to menu's outer DIV
+	customtheme: ["#c6d8ec", "#c6d8ec"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+</script>   
+    <body>
+<!--submenu diferenciado para PEFs e UMs-->        
+<!--<div th:insert="mu_management/subMenuPEL.html :: subMenuPEL"></div>--> 
+<div class="subMenu" th:include="${subMenu} :: subMenu"></div> 
+<!--corpo principal, apresentação de conteúdo-->
+<div class="container" th:include="${subContent} :: subCorpo"></div>
+    
+    
+</html>

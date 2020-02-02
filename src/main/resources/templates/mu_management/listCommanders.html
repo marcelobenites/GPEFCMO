@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Administração de comando</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+        <div>                  
+            <a class="btn btn-dark btn-sm" th:href="@{/commandControl/registerCmd/{id}(id=${militaryUnit.id})}">Novo registro de Cmt/SCmt</a>
+        </div>
+
+        <div th:if="!${#strings.isEmpty(message)}" class="col-12">
+            <hr>  
+            <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+                <div class="alert alert-info">
+                    <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+                </div>
+            </div>
+        </div>
+
+         <hr>
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Histórico de comandantes </div>
+          <div class="card-body">
+            <div class="table-responsive">
+<table  class="table table-hover tb">
+            <thead>
+            <tr>
+                <th width="200"></th>
+                <th width="200">Data de Início</th>
+                <th width="200">Previsão de Término</th>
+                <th width="200">Data de Término</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                 <tr th:each="cmd : ${commanders}">
+                    <td th:text="${cmd.military.post.abbreviation} +' '+ ${cmd.military.war_name}"></td>                                    
+                    <td th:text="${cmd.entrance}"></td>                                    
+                    <td th:text="${cmd.estimated_exit}"></td>                                    
+                    <td th:text="${cmd.exit_date}"></td>                                    
+                    <td>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')" class="btn btn-secondary btn-sm"  th:href="@{/commandControl/preUpdate/{id}(id=${cmd.id})}" >Editar</a>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')" class="btn btn-danger btn-sm"  th:href="@{/commandControl/delete/{id}/{muId}(id=${cmd.id},muId=${militaryUnit.id})}" >Excluir</a>                      	
+                       
+                        <!--<a class="btn btn-info btn-sm" th:href="@{/supplyControl/moreInfo/{id}/{supplyClass}(id=${si.id},supplyClass=${supplyClass.description})}"  >+Info</a>-->    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+       
+                 
+                 
+ <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Histórico de subcomandantes </div>
+          <div class="card-body">
+            <div class="table-responsive">
+<table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th width="200"></th>
+                <th width="200">Data de Início</th>
+                <th width="200">Previsão de Término</th>
+                <th width="200">Data de Término</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                 <tr th:each="scmd : ${subcommanders}">
+                    <td th:text="${scmd.military.post.abbreviation} +' '+ ${scmd.military.war_name}"></td>                                    
+                    <td th:text="${scmd.entrance}"></td>                                    
+                    <td th:text="${scmd.estimated_exit}"></td>                                    
+                    <td th:text="${scmd.exit_date}"></td>                                          
+                    <td>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')" class="btn btn-secondary btn-sm"  th:href="@{/commandControl/preUpdate/{id}(id=${scmd.id})}" >Editar</a>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')" class="btn btn-danger btn-sm"  th:href="@{/commandControl/delete/{id}/{muId}(id=${scmd.id},muId=${militaryUnit.id})}" >Excluir</a>                      	
+                        <a class="btn btn-info btn-sm" th:href="@{/supplyControl/moreInfo/{id}/{supplyClass}(id=${si.id},supplyClass=${supplyClass.description})}"  >+Info</a>    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+                            
+                 
+                 
+    </div>        
+</html>
+

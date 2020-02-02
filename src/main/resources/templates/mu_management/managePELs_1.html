@@ -1,0 +1,105 @@
+<!-- Apresenta informações gerais cadastradas para PEF ou Esqd/Pel C Mec Dst com submenu para gerenciamento-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Informações gerais da unidade</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+    <div class="container" th:fragment="subCorpo">
+    <a class="btn btn-info btn-sm" th:href="@{/pefEsqdPelControl/preUpdatePELAdmInfo/{id}(id=${militaryUnit.id})}"><i class="fa fa-fw fa-edit"></i>Editar informações</a>
+        
+        <br> 
+        <br> 
+    <div class="card mb-3">
+        <div class="card-header"> <i class="fa fa-list-alt">&nbsp;</i> <strong>Generalidades</strong> 
+        </div>
+          <div class="card-body">    
+        
+        <strong><h7>Nome da fração: </h7></strong><span th:text="${militaryUnit.MU_name}"></span><br>
+        <strong><h7>Tipo da fração: </h7></strong><span th:text="${militaryUnit.MU_type.descricao}"></span><br>
+        <strong><h7>Comandante: </h7></strong><span th:text="${militaryUnit.MU_command}"></span><br>
+        <strong><h7>Subcomandante: </h7></strong><span th:text="${militaryUnit.S_command}"></span><br>
+        <hr>
+        <strong><h7>Histórico: </h7></strong><br>
+        <span th:text="${militaryUnit.MU_history}"></span><br>
+        <hr>
+        <strong><h7>Subordinação:</h7></strong>   <br>  
+        <div th:each="relatedUnit : ${subordinationChain}">
+            <a  th:text="${relatedUnit.MU_name}">  </a>  <br>
+            <i th:if="${relatedUnit.MU_name}!=${militaryUnit.MU_name}" class="fa fa-fw fa-arrow-circle-o-down"></i>
+        </div>
+        <br>
+        <hr>
+                             
+        <strong><h7>Outras frações/imóveis sob sua responsabilidade:</h7></strong><br>
+        <!--<span th:if="${muAdditionalFractions==null}">Não há registro</span>-->  
+        <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover tb">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Efetivo</th>
+                                    <th>Endereço</th>
+                                    <th>Coordenadas (Lat/Lng)</th>
+                                    <th>Tel. de Contato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="muaf : ${muAdditionalFractions}">
+                                    <td th:text="${muaf.fraction_name}"></td>                                    
+                                    <td th:text="${muaf.total_staff}"></td>                                    
+                                    <td th:text="${muaf.address.street}+' '+${muaf.address.number}"></td>                                    
+                                    <td 
+                                        <a th:text="${muaf.address.latitude}"></a>                                    
+                                        <a th:text="${muaf.address.longitude}"</a>
+                                    </td>                                    
+                                    <td th:text="${muaf.fraction_tel}"></td>                                    
+                                    <td>   
+                                          
+<!--                                      <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-secondary btn-sm"  th:href="@{/pefEsqdPelControl/preUpdateMUAdditionalFractions/{id}(id=${muas.id})}" >Editar</a>
+                                       <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-danger btn-sm"  th:href="@{/pefEsqdPelControl/removeMUAdditionalFractions/{id}(id=${muas.id})}" >Excluir</a>                      	
+                                    <a class="btn btn-info btn-sm" th:href="@{/supplyControl/moreInfo/{id}/{supplyClass}(id=${si.id},supplyClass=${supplyClass})}"  >+Info</a>    -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>     
+            
+        </div></div>
+  
+<br> 
+    
+    
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-map-o">&nbsp;</i> <strong>Informações de Localização e Contato</strong> </div>
+          <div class="card-body">
+                
+ 
+        <strong><h7>Localização</h7></strong> <br>
+        Estado: <span th:text="${militaryUnit.address.zone.state_name}"></span><br>
+        Município: <span th:text="${militaryUnit.address.zone.county_name}"></span><br>
+        Latitude (<span th:text="${militaryUnit.address.latitude}"></span>) Longitude (<span th:text="${militaryUnit.address.longitude}"></span>)<br>
+        Endereço: <span th:text="${militaryUnit.address.street}+' '+${militaryUnit.address.number}"></span><br>
+        Delimitação e dimensão da Área de Responsabilidade (Km²): <span th:text="${militaryUnit.perimeter}"></span><br>
+            
+            
+        <hr>
+        <strong><h7>Contato</h7></strong>  <br>    
+        E-mail: <span th:text="${militaryUnit.MU_email}"></span><br>
+        Telefone/Celular/Whatsapp: <span th:text="${militaryUnit.MU_tel}"></span><br>   
+        RITEx:<span th:text="${militaryUnit.ritex}"></span><br>   
+        Frequência de rádio:<span th:text="${militaryUnit.radio_freq}"></span><br>   
+            
+        <hr>
+        <strong><h7>Dados gerais</h7></strong>  <br>      
+        Ambiente Op: <span th:text="${militaryUnit.operational_environment}"></span><br>
+        Localidades mais importantes no entorno do PEF:<span th:text="${militaryUnit.main_zones}"></span><br>   
+        Relacionamento com estrangeiros (BOL, PAR, outros): <span th:text="${militaryUnit.foreign_relation}"></span><br>   
+        Etta geral País Viz (cidade, vila, FA, Ap Saúde, Ap às compras, Ap Alimentos):<span th:text="${militaryUnit.general_etta}"></span><br>   
+            
+            <br>             
+    </div>
+    <br> 
+</html>

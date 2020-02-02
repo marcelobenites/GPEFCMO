@@ -1,0 +1,45 @@
+<!-- Apresenta informações gerais cadastradas para uma pef como subpágina inicial da parte de gerencimento-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<hr>
+<!-- Card Columns Example Social Feed-->
+<strong><h7>Localização</h7></strong>
+    <p>
+        Município: <span th:text="${militaryUnit.address.zone.county_name}"></span><br>
+        Endereço: <span th:text="${militaryUnit.address.street}+' '+${militaryUnit.address.number}"></span><br>
+        Latitude (<span th:text="${militaryUnit.address.latitude}"></span>) Longitude (<span th:text="${militaryUnit.address.longitude}"></span>)<br>
+        Telefone: <span th:text="${militaryUnit.MU_tel}"></span><br>        
+        E-mail: <span th:text="${militaryUnit.MU_tel}"></span><br>
+    </p>        
+<!--
+<strong><h7>Comandante</h7></strong>  
+    <p>
+        Município: <span th:text="${militaryUnit.address.zone.county_name}"></span><br>
+        Endereço: <span th:text="${militaryUnit.address.street}+' '+${militaryUnit.address.number}"></span><br>
+        Latitude (<span th:text="${militaryUnit.address.latitude}"></span>) Longitude (<span th:text="${militaryUnit.address.longitude}"></span>)<br>
+        Telefone: <span th:text="${militaryUnit.MU_tel}"></span><br>        
+        E-mail: <span th:text="${militaryUnit.MU_tel}"></span><br>
+    </p> -->
+<strong><h7>Município(s) Abrangido(s)</h7></strong>   
+
+
+
+ <hr class="mt-2">
+            
+    <div class="card-columns">
+      <!-- Example Social Card-->
+      <div th:each="mui : ${information}" class="card mb-3"> 
+          <a href="#"> <img class="card-img-top img-fluid w-100"
+            src="https://unsplash.it/700/450?image=610" alt=""> </a>
+        <div class="card-body">
+          <h6 class="card-title mb-1" th:text="${mui.title}"></h6>
+          <p class="card-text small" th:text="${mui.body}"></p>
+        </div>   
+
+
+        <div class="card-footer small text-muted" th:text="${mui.military_author.war_name}">Fonte:</div>
+       </div>
+    </div>
+        
+    </div>
+</html>

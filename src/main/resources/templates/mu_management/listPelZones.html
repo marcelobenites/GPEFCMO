@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+<!--        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Lista de Cidades/Municípios da região da unidade</strong></a> </li> 
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>
+        </ol>-->
+        
+    <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'"
+    <div class="panel-heading">
+        <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+    </div>
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i>&nbsp;<strong>Municípios de Área</strong> <br>
+            <small>(Atenção: as informações do município podem ser editadas nesta seção. 
+                Contudo, a inclusão/exclusão ou vinculação de área devem ser solicitadas ao suporte.)</small></div>
+    
+    <div class="card-body">
+            <div class="table-responsive">
+<table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Estado</th>
+                <th>País</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody>
+                 <tr th:each="z : ${zones}">
+                    <td th:text="${z.county_name}"></td>
+                    <td th:text="${z.state_name}"></td>                                      
+                    <td th:text="${z.country_name}"></td>                                      
+                    <td>                    	
+                        <a class="btn btn-secondary btn-sm" th:href="@{/zoneControl/preUpdateZonePelInfo/{mu_id}/{zone_id}(mu_id=${militaryUnit.id},zone_id=${z.id})}">Editar Info</a>     
+                        <a class="btn btn-info btn-sm" th:href="@{/zoneControl/showSingleZone/{id}(id=${z.id})}">+Info</a>
+                        
+                        
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+            
+    </div>        
+</html>

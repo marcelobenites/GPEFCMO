@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+<!--        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="'Item de Suprimento '+${supplyClass.description}+' resumo de informações'" ></strong></a> </li> 
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>
+        </ol>      
+    
+         <br>-->
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-file-text-o"></i> <strong th:text="'Instalação de '+${structureType.description}+' - resumo de informações'" ></strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+<a th:if="${structureType.description}=='PNR'">
+    <strong>Nome/Número: </strong> <span th:text="${structureItem.name}"></span><br>
+    <strong>Natureza </strong> <span th:text="${structureItem.PNRKind.description}"></span><br>
+    <strong>Categoria </strong> <span th:text="${structureItem.PNRCategory.description}"></span><br>
+    <strong>Tipo </strong> <span th:text="${structureItem.PNRType.description}"></span><br>
+    <strong>Disponibilidade </strong> <span th:text="${structureItem.occupation_status.description}"></span><br>    
+
+</a>
+<a th:if="${structureType.description}=='Estocagem'">
+    <strong>Nome: </strong> <span th:text="${structureItem.name}"></span><br>
+    <strong>Capacidade de Estocagem: </strong> <span th:text="${structureItem.storage_capacity}"></span><br>
+    <strong>Tipos de itens a serem estocados: </strong> <span th:text="${structureItem.type}"></span><br>
+    <strong>Situação: </strong> <span th:text="${structureItem.description}"></span><br>
+</a>
+<a th:if="${structureType.description}=='Sala de Armas'">
+    <strong>Nome: </strong> <span th:text="${structureItem.name}"></span><br>
+    <strong>Capacidade: </strong> <span th:text="${structureItem.storage_capacity}"></span><br>
+    <strong>Tipos de armamento aceitos: </strong> <span th:text="${structureItem.storage_weapon_types}"></span><br>
+    <strong>Mobiliário da reserva: </strong> <span th:text="${structureItem.storage_furniture}"></span><br>
+</a>
+<a th:if="${structureType.description}=='Outras Instalações'">
+    <strong>Nome: </strong> <span th:text="${structureItem.name}"></span><br>
+    <strong>Função </strong> <span th:text="${structureItem.str_function}"></span><br>
+    <strong>Descrição: </strong> <span th:text="${structureItem.description}"></span><br>
+      
+</a>
+
+<strong>Latitude: </strong> <span th:text="${structureItem.locationPoint.latitude}"></span><br>
+<strong>Longitude: </strong> <span th:text="${structureItem.locationPoint.longitude}"></span><br>
+<strong>Outra informação: </strong> <span th:text="${structureItem.extra_observation}"></span><br><hr>
+<strong>Última atualização: </strong> <span th:text="${structureItem.last_update}"></span><br>
+<strong>Responsável pela última atualização: </strong> <span th:text="${structureItem.mil_modifier.post.abbreviation} +' '+ ${structureItem.mil_modifier.war_name}"></span><br>
+            </div>
+          </div> 
+        </div>
+    <div>
+                              <a class="btn btn-dark" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${structureItem.mu_owner.id},structureType=${structureType.description})}"  >Voltar</a>
+        </div>        
+    </div>  
+     
+</html>

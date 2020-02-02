@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="corpo">
+
+     <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Cidades/Municípios Cadastrados</strong></a> </li> 
+                &nbsp;<a href="" data-target="#modal-basico" data-toggle="modal"><i style="vertical-align:middle" class="fa fa-fw fa-info-circle"></i></a> 
+       
+        </ol>
+        
+<!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle"></i>  Info</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body" style="text-align: justify"> 
+                  Abaixo estão listadas as cidades/municípios cadastrados no sistema. Para determinados perfis de usuário também estão disponíveis opções para inclusão , edição e exclusão de cidades/municípios cadastrados.<br> 
+                    
+          
+          </div>
+            <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                data-dismiss="modal">Fechar</button>             
+            </div>   
+      </div>
+   </div>
+</div>     
+
+<div sec:authorize="hasAuthority('SUPERADMIN')">
+    <hr>
+        <h6><strong>Incluir nova Cidade/Município</strong></h6>
+        <a sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-secondary btn-dark btn-sm" th:href="@{/zoneControl/registerZone}">Incluir</a>
+    <hr>  
+</div>
+     
+       
+<!--        <h5>Selecionar região(ões)</h5>
+        <hr>
+            <div class="container-fluid">
+                <div class="row">
+                <div class="col-5">
+                <form class="navbar-form navbar-left" th:action="@{/userControl/listUsrByCl}" method="get">
+                    
+                    <div class="form-group">
+                        <select name="classe" class="form-control" >
+                            <option value="">Estado</option>
+                            <option th:each="classe : ${classesU}" th:value="${classe}" th:text="${classe.descricao}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-default">Filtrar</button>
+                    
+                </form>
+                </div>               
+                </div>
+            </div>
+            
+        
+	<br><br>
+    <h5>Relação de cidades</h5>-->
+
+<div th:if="!${#strings.isEmpty(message)}" class="row">
+            <div class="col-auto">   
+            <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+        <div class="alert alert-danger">
+            <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+            </div></div>
+            </div>
+</div>
+
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Relação de Cidades/Municípios</div>
+          <div class="card-body">
+
+
+
+        <table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Estado</th>
+                <th>País</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="z : ${zones}">
+                    <td th:text="${z.county_name}"></td>
+                    <td th:text="${z.state_name}"></td>                                      
+                    <td th:text="${z.country_name}"></td>                                      
+                    <td>                    	
+                        <a class="btn btn-secondary btn-sm" th:href="@{/zoneControl/preUpdate/{id}(id=${z.id})}" >Editar</a>
+                        <a sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-danger btn-sm" th:href="@{/zoneControl/delete/{id}(id=${z.id})}" >Excluir</a>      
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        
+        
+                        
+                
+    </div>    
+</div>
+    </div></html>

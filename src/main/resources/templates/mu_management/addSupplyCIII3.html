@@ -1,0 +1,85 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${supplyItemCIII3.id == null} ? #{title.save.supplyItemCIII3} : #{title.update.supplyItemCIII3}"></strong></a> </li> 
+    </ol>
+<div th:if="${supplyItemCIII3.id != null}" class="row">
+    <div class="col">
+        <span th:text="${description}"></span><br>
+        <strong>Última Atualização:</strong><span th:text="${supplyItemCIII3.last_update}"></span><br>
+    </div><hr>
+</div>
+    <div>
+    	<form th:action="${supplyItemCIII3.id == null} ? @{/supplyControl/saveSupplyItemCIII3} : @{/supplyControl/updateSupplyItemCIII3}"  th:object="${supplyItemCIII3}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe III.3 -"/>
+            <input type="hidden" th:field="*{last_update}"/>
+            <input type="hidden" th:field="*{name}" value="'Diesel'"/>
+            
+            
+            <div class="row">
+                <div class="col">    
+                    <label th:for="expected_amount">Qtd. Total Prevista (mil litros): </label>
+                    <input th:type="text" class="form-control" id="expected_amount" th:field="*{expected_amount}"/>
+                    <span th:if="${#fields.hasErrors('expected_amount')}" th:errors="*{expected_amount}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="current_amount">Qtd. Em Uso (mil litros): </label>
+                    <input th:type="text" class="form-control" id="current_amount" th:field="*{current_amount}"/>
+                    <span th:if="${#fields.hasErrors('current_amount')}" th:errors="*{current_amount}" class="label label-danger"></span>
+                </div>
+                
+                <div class="col">    
+                    <label th:for="deficit">Qtd. a ser Suprido (mil litros): </label>
+                    <input th:type="text" class="form-control" id="deficit" th:field="*{deficit}"/>
+                    <span th:if="${#fields.hasErrors('deficit')}" th:errors="*{deficit}" class="label label-danger"></span>
+                </div>
+                
+                
+            </div>
+            <div class="row">
+                 <div class="col">
+                <div class="form-group">
+                     <div class="form-group">
+                    <label th:for="storage">Local de armazenamento: </label>
+                      <select th:field="*{storage.id}" class="custom-select" id="armory" name="educationDate[]">
+                        <option value=""></option>
+                        <option th:each="storage : ${currentStorages}" th:value="${storage.id}" th:text="${storage.name}"></option>       
+                      </select>
+                    </div></div>
+              </div>
+                <div class="col">    
+                    <label th:for="storage_type">Tipo de armazenagem: </label>
+                    <input th:type="text" class="form-control" id="storage_type" th:field="*{storage_type}"/>
+                    <span th:if="${#fields.hasErrors('storage_type')}" th:errors="*{storage_type}" class="label label-danger"></span>
+                </div>  
+                <div class="col">    
+                    <label th:for="situation">Situação:</label>
+                    <input th:type="text"  class="form-control" id="situation" th:field="*{situation}"/>
+                    <span th:if="${#fields.hasErrors('situation')}" th:errors="*{situation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+                
+             
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

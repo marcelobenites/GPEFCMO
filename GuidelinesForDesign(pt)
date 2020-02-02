@@ -1,0 +1,11 @@
+Padronização de botões
+
+btn btn-dark btn-sm - inclusão de novo registro (OM, usuários, etc.)
+
+ - aplicação de filtros / adição de informações pré cadastradas em formulários
+
+ - exclusão de itens cadastrados
+
+ - + informação / gerenciamento de informações
+
+ - confirmação de ação (inclusão/atualização de registro)

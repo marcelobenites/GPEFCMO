@@ -1,0 +1,249 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${operationalActivity.id == null} ? #{title.save.operationalActivity} : #{title.update.operationalActivity}"></strong></a> </li> 
+    </ol>
+                  
+    <div>
+        <form name="form1" th:action="${operationalActivity.id == null} ? @{/operationalActivityControl/save} : @{/operationalActivityControl/update}"  th:object="${operationalActivity}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{military_unit.id}" th:value="${militaryUnit.id}"/>
+            <!--<a th:if="${operationalActivity.id} != null" <strong>Status: </strong><span  th:text="${status.description}"></span></a>-->
+           <div class="row">
+                <div class="col">    
+                    <label th:for="title">Nome da operação: </label>
+                    <input required th:type="text" class="form-control" id="title" th:field="*{name}"/>
+                    
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="estimated_start_time">Data/hora estimada para início: </label>
+                    <input th:type="date" size="16" class="form-group" id="estimated_start_date" th:field="*{estimated_start_date}"/>
+                    <span th:if="${#fields.hasErrors('estimated_start_date')}" th:errors="*{estimated_start_date}" class="label label-danger"></span>             
+                    <input th:type="time" size="6" class="form-group" id="estimated_start_time" th:field="*{estimated_start_time}"/>
+                    <span th:if="${#fields.hasErrors('estimated_start_time')}" th:errors="*{estimated_start_time}" class="label label-danger"></span>             
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+                <div class="col">    
+                    <label th:for="estimated_finish_date">Data/hora estimada para término: </label>
+                    <input th:type="date" size="16" class="form-group" id="estimated_finish_date" th:field="*{estimated_finish_date}"/>
+                    <span th:if="${#fields.hasErrors('estimated_finish_date')}" th:errors="*{estimated_finish_date}" class="label label-danger"></span>             
+                    <input th:type="time" size="6" class="form-group" id="estimated_finish_time" th:field="*{estimated_finish_time}"/>
+                    <span th:if="${#fields.hasErrors('estimated_finish_time')}" th:errors="*{estimated_finish_time}" class="label label-danger"></span>             
+               </div>
+                <div class="col">    
+                    <label th:for="real_start_date">Data/hora real de início: </label>
+                    <input type="date" size="16" class="form-group" id="real_start_date" th:field="*{real_start_date}"/>
+                    <span th:if="${#fields.hasErrors('real_start_date')}" th:errors="*{real_start_date}" class="label label-danger"></span>             
+                    <input type="time" size="6" class="form-group" id="real_start_time" th:field="*{real_start_time}"/>
+                    <span th:if="${#fields.hasErrors('real_start_time')}" th:errors="*{real_start_time}" class="label label-danger"></span>             
+               </div>
+                <div class="col">    
+                    <label th:for="real_finish_date">Data/hora real de término: </label>
+                    <input type="date" size="16" class="form-group" id="real_finish_date" th:field="*{real_finish_date}"/>
+                    <span th:if="${#fields.hasErrors('real_finish_date')}" th:errors="*{real_finish_date}" class="label label-danger"></span>             
+                    <input type="time" size="6" class="form-group" id="real_finish_time" th:field="*{real_finish_time}"/>
+                    <span th:if="${#fields.hasErrors('real_finish_time')}" th:errors="*{real_finish_time}" class="label label-danger"></span>             
+                </div>
+                
+            </div> 
+            <div class="row">
+                <div class="col">  
+                    <label th:for="latitude">Latitude do local da operação (graus decimais): </label>
+                    <input type="number" step="any" placeholder="DD.DDDDDDDD" class="form-control" id="latitude" th:field="*{latitude}"/>
+                    <span th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">Longitude do local da operação (graus decimais): </label>
+                    <input type="number" step="any" placeholder="DD.DDDDDDDD" class="form-control" id="longitude" th:field="*{longitude}"/>
+                    <span th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}" class="label label-danger"></span>             
+                </div>  
+                
+                <div class="col">    
+                    <label th:for="headquarter_distance">Distância da sede (Km): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="headquarter_distance" th:field="*{headquarter_distance}"/>
+                    <span th:if="${#fields.hasErrors('headquarter_distance')}" th:errors="*{headquarter_distance}" class="label label-danger"></span>
+                </div>
+<!--                <div class="col-3">
+                        <label th:for="status">Status da atividade operacional: </label>
+                            <select required th:field="*{status}" id="status" class="custom-select">
+                                <option value=""></option>
+                                <option th:each="status : ${oaStatus}" th:value="${status}" th:text="${status.description}"></option>
+                            </select>    
+                </div>-->
+            </div>
+   
+            <div class="row">
+                 <div class="col">
+                    <label th:for="region">Descrição da região abrangida: </label>
+                    <textarea th:type="text" class="form-control" id="region" th:field="*{region}"></textarea>
+                    <span th:if="${#fields.hasErrors('region')}" th:errors="*{region}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="supply_description">Material empregado: </label>
+                    <textarea th:type="text" class="form-control" id="supply_description" th:field="*{supply_description}"></textarea>
+                    <span th:if="${#fields.hasErrors('supply_description')}" th:errors="*{supply_description}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="force_alterations">Alterações na missão: </label>
+                    <textarea th:type="text" class="form-control" id="force_alterations" th:field="*{force_alterations}"></textarea>
+                    <span th:if="${#fields.hasErrors('force_alterations')}" th:errors="*{force_alterations}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="supply_alterations">Alterações de material: </label>
+                    <textarea th:type="text" class="form-control" id="supply_alterations" th:field="*{supply_alterations}"></textarea>
+                    <span th:if="${#fields.hasErrors('supply_alterations')}" th:errors="*{supply_alterations}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="roads">Descrição da situação das estradas: </label>
+                    <textarea th:type="text" class="form-control" id="roads" th:field="*{roads}"></textarea>
+                    <span th:if="${#fields.hasErrors('roads')}" th:errors="*{roads}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="supporters">Órgãos e Agências participantes: </label>
+                    <textarea th:type="text" class="form-control" id="supporters" th:field="*{supporters}"></textarea>
+                    <span th:if="${#fields.hasErrors('supporters')}" th:errors="*{supporters}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="main_goal">Descrição de objetivo/finalidade: </label>
+                    <textarea th:type="text" class="form-control" id="main_goal" th:field="*{main_goal}"></textarea>
+                    <span th:if="${#fields.hasErrors('main_goal')}" th:errors="*{main_goal}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="report">Descrição de resultados da missão: </label>
+                    <textarea th:type="text" class="form-control" id="report" th:field="*{report}"></textarea>
+                    <span th:if="${#fields.hasErrors('report')}" th:errors="*{report}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+     <br> <hr>
+    
+<!--      Parte de combobox que busca info no banco com soma dinamica de campos.          
+ <div class="panel panel-default">
+  <div class="panel-body">
+  <div id="education_fields"></div>
+  
+<div class="col-sm-3 nopadding">
+  <div class="form-group">
+    <div class="input-group">
+      <select class="form-control" id="educationDate" name="educationDate[]">
+        <option value="Selecione uma unidade"></option>
+         <option th:each="currentMUss : ${units}" th:value="${currentMUss.MU_name}" th:text="${currentMUss.MU_name}"></option>       
+      </select>
+      <div class="input-group-btn">
+        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="fa fa-plus" aria-hidden="true"></span> </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+  
+  </div>
+  <div class="panel-footer"><small>Press <span class="fa fa-plus"></span> to add another form field :)</small>, <small>Press <span class="fa fa-minus"></span> to remove form field :)</small></div>
+</div>-->
+     
+     
+     
+     
+       
+        <div class="form-group">
+            <div>    
+                    <label th:for="set_force">Ir para a definição/edição de efetivo? </label>
+                    <input type="checkbox" th:field="*{set_force}" th:checked="${true}" />
+            </div>
+            <button type="submit" onclick="checkDates()" id="botao" class="btn btn-primary btn-sm">Confirmar</button>
+        </div>        
+    </form>
+    </div> 
+<script type="text/javascript">
+    
+    var btn = document.getElementById('botao');
+botao.addEventListener("click", checkDates);
+    /**Checa se a data inicial é anterior à data final*/
+    function checkDates() {
+        var edata1 = document.getElementById('estimated_start_date').value;
+        var edata2 = document.getElementById('estimated_finish_date').value;
+ 
+     if (!isDataValida(edata1, edata2)){
+	alert('Não alterado! A data estimada de início não pode ser posterior a data estimada de término.');
+        location.reload();
+     }
+        var data1 = document.getElementById('real_start_date').value;
+        var data2 = document.getElementById('real_finish_date').value;
+ 
+     if (!isDataValida(data1, data2)){
+	alert('Não alterado! A data de início não pode ser posterior a data de término.');
+        location.reload();
+     }
+     
+}
+/* Valida se a data passada como parâmetro está dentro do período informado */
+function isDataValida(date1, date2){
+    if (!date1 || !date2){
+        console.log("Algum campo de data é nulo");
+        return true;
+    }
+     console.log("Data 1"+date1.toString()+" é maior que data 2 "+date2.toString());   
+    var arrayData = date1.split('-');
+    var campoAno = parseInt(arrayData[0]);
+    var campoMes = parseInt(arrayData[1]); 
+    var campoDia = parseInt(arrayData[2]); 
+    
+    var date_1 = new Date();
+    date_1.setDate(campoDia);
+    date_1.setMonth(campoMes);
+    date_1.setYear(campoAno);
+    
+    var arrayData2 = date2.split('-');
+    var campoAno2 = parseInt(arrayData2[0]);
+    var campoMes2 = parseInt(arrayData2[1]); 
+    var campoDia2 = parseInt(arrayData2[2]); 
+    
+    var date_2 = new Date();
+    date_2.setDate(campoDia2);
+    date_2.setMonth(campoMes2);
+    date_2.setYear(campoAno2);
+ 
+    if (date_1.getTime() > date_2.getTime()) {
+        
+        console.log("Data 1"+date_1.toDateString()+" é maior que data 2 "+date_2.toDateString());
+        return false;
+    } else {
+        console.log("Data 1"+date_1.toDateString()+" é menor que data 2 "+date_2.toDateString());
+        return true;
+    }
+ 
+ 
+    var dataUsuario = new Date();
+    dataUsuario.setDate(campoDia);
+    dataUsuario.setMonth(campoMes -1);
+    dataUsuario.setFullYear(campAno);
+ 
+    var dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() + periodo);
+ 
+    if(dataUsuario.getTime() <= dataLimite.getTime()){
+    	return true;
+    }else{
+    	return false;
+    }
+}
+</script>
+</div>

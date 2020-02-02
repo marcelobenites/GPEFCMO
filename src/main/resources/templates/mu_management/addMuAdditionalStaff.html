@@ -1,0 +1,33 @@
+<!--ADICIONA UM NOVO REGISTRO DE EFETIVO DE ÓRGÃO ADICIONAL-->
+<div class="container" th:fragment="subCorpo">
+     
+<ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${muAdditionalStaff.id == null} ? #{title.save.muAdditionalStaff} : #{title.update.muAdditionalStaff}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${muAdditionalStaff.id == null} ? @{/pefEsqdPelControl/saveMUAdditonalStaff} : @{/pefEsqdPelControl/updateMUAdditonalStaff}"  th:object="${muAdditionalStaff}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{related_mu.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="organization_name">Nome do Orgão: </label>
+                    <input required th:type="text" class="form-control" id="organization_name" th:field="*{organization_name}"/>
+                    <span th:if="${#fields.hasErrors('organization_name')}" th:errors="*{organization_name}" class="label label-danger"></span>
+                </div>
+                
+                
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="description">Descrição: </label>
+                    <textarea th:type="text" style="height:250px;" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

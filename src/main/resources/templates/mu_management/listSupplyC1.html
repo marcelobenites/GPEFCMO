@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Cidades/Municípios da região do pelotão</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+        
+    <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'"
+    <div class="panel-heading">
+        <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+    </div>
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Municípios na região do pelotão <small>(Atenção: informações complementares podem ser acrescentadas/editadas, mas municípios só podem ser incluídos/excluídos pelo administrador.)</small></div>
+          <div class="card-body">
+            <div class="table-responsive">
+<table class="table table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Estado</th>
+                <th>País</th>
+            </tr>
+            </thead>
+            <tbody>
+                 <tr th:each="z : ${zones}">
+                    <td th:text="${z.county_name}"></td>
+                    <td th:text="${z.state_name}"></td>                                      
+                    <td th:text="${z.country_name}"></td>                                      
+                    <td>                    	
+                        <a class="btn btn-secondary btn-sm" th:href="@{/zoneControl/preUpdate/{id}(id=${z.id})}" >Editar</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/zoneControl/delete/{id}(id=${z.id})}" >Excluir</a>      
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+            
+    </div>        
+</html>

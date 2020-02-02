@@ -1,0 +1,157 @@
+
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${svc2.id == null} ? #{title.save.service2} : #{title.update.service2}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${svc2.id == null} ? @{/serviceControl/saveService2} : @{/serviceControl/updateService2}"  th:object="${svc2}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{serviceType}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+    <hr>
+    <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome da concessionária: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div></div>
+    <hr><br>
+ <h5>Serviço de Água</h5>
+  <small><i>(Informações de concessionária e serviço.)</i></small><br><br>    
+            <div class="row">
+                <div class="col">    
+                    <label th:for="water_treatment">Tratamento empregado: </label>
+                    <input required th:type="text" class="form-control" id="water_treatment" th:field="*{water_treatment}"/>
+                    <span th:if="${#fields.hasErrors('water_treatment')}" th:errors="*{water_treatment}" class="label label-danger"></span>
+                </div>
+            </div>     
+            <div class="row">
+                <div class="col">    
+                    <label th:for="water_origin">Origem da captação: </label>
+                    <input required th:type="text" class="form-control" id="water_origin" th:field="*{water_origin}"/>
+                    <span th:if="${#fields.hasErrors('water_origin')}" th:errors="*{water_origin}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="water_exit">Devolução da captação: </label>
+                    <input required th:type="text" class="form-control" id="water_exit" th:field="*{water_exit}"/>
+                    <span th:if="${#fields.hasErrors('water_exit')}" th:errors="*{water_exit}" class="label label-danger"></span>
+                </div>
+             </div>
+        
+            <div class="row">   
+                <div class="col">    
+                    <label th:for="water_use">Utilização: </label>
+                    <textarea th:type="text" class="form-control" id="water_use" th:field="*{water_use}"></textarea>
+                    <span th:if="${#fields.hasErrors('water_use')}" th:errors="*{water_use}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+                
+             <div class="row">   
+                <div class="col">    
+                    <label th:for="water_capacity">Capacidade (m<sup>3</sup>): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="water_capacity" th:field="*{water_capacity}"/>
+                    <span th:if="${#fields.hasErrors('water_capacity')}" th:errors="*{water_capacity}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="water_consumption">Consumo da unidade (m<sup>3</sup>): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="water_consumption" th:field="*{water_consumption}"/>
+                    <span th:if="${#fields.hasErrors('water_consumption')}" th:errors="*{water_consumption}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="water_distance">Distância Origem/Armazenagem (Km): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="water_distance" th:field="*{water_distance}"/>
+                    <span th:if="${#fields.hasErrors('water_distance')}" th:errors="*{water_distance}" class="label label-danger"></span>
+                </div>
+                
+             </div>     
+           
+                
+            <div class="row">   
+                <div class="col">    
+                    <label th:for="water_equipment">Equipamento utilizado: </label>
+                    <textarea th:type="text" class="form-control" id="water_equipment" th:field="*{water_equipment}"></textarea>
+                    <span th:if="${#fields.hasErrors('water_equipment')}" th:errors="*{water_equipment}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+            
+<hr>   
+ <h5>Serviço de Esgoto</h5>
+  <small><i>(Informações de concessionária e serviço.)</i></small><br><br>                    
+  
+  <div class="row">   
+                <div class="col">    
+                    <label th:for="sewage_served_homes">Qtd. de residências atendidas: </label>
+                    <input th:type="number" step="1" min="0" class="form-control" id="sewage_served_homes" th:field="*{sewage_served_homes}"/>
+                    <span th:if="${#fields.hasErrors('sewage_served_homes')}" th:errors="*{sewage_served_homes}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="sewage_treatment">Tratamento empregado: </label>
+                    <input th:type="text" class="form-control" id="sewage_treatment" th:field="*{sewage_treatment}"/>
+                    <span th:if="${#fields.hasErrors('sewage_treatment')}" th:errors="*{sewage_treatment}" class="label label-danger"></span>
+                </div>
+  
+  </div>
+  <div class="row">   
+                <div class="col">    
+                    <label th:for="sewage_storage">Armazenagem: </label>
+                    <input th:type="number" step="1" min="0" class="form-control" id="sewage_storage" th:field="*{sewage_storage}"/>
+                    <span th:if="${#fields.hasErrors('sewage_storage')}" th:errors="*{sewage_storage}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="sewage_devolution">Forma de devolução ao meio-ambiente: </label>
+                    <input th:type="text" class="form-control" id="sewage_devolution" th:field="*{sewage_devolution}"/>
+                    <span th:if="${#fields.hasErrors('sewage_devolution')}" th:errors="*{sewage_devolution}" class="label label-danger"></span>
+                </div>
+  
+  </div>
+  
+  <div class="row">   
+     <div class="col">
+         <div class="form-group">
+                        
+        <label th:for="systems">Sistema utilizado: </label>
+        <select th:field="*{sewage_serviceType}" id="system"  class="custom-select">
+            <option value=""></option>
+            <option th:each="systems : ${sewageSys}" th:value="${systems}" th:text="${systems.description}"></option>
+        </select>
+    </div>    
+                </div>          
+      
+    <div class="col">    
+        <label th:for="sewage_maintainment_frequence">Frequência de Manutenção (anual): </label>
+        <input th:type="number" step="1" min="0" class="form-control" id="sewage_maintainment_frequence" th:field="*{sewage_maintainment_frequence}"/>
+        <span th:if="${#fields.hasErrors('sewage_maintainment_frequence')}" th:errors="*{sewage_maintainment_frequence}" class="label label-danger"></span>
+    </div>
+
+    <div class="col">    
+        <label th:for="sewage_to_water_distance">Distância Descarte/Rede de água (Km): </label>
+        <input th:type="number" step="0.01" min="0" class="form-control" id="sewage_to_water_distance" th:field="*{sewage_to_water_distance}"/>
+        <span th:if="${#fields.hasErrors('sewage_to_water_distance')}" th:errors="*{sewage_to_water_distance}" class="label label-danger"></span>
+    </div>
+
+ </div> 
+  <hr> 
+  
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

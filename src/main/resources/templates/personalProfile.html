@@ -1,0 +1,84 @@
+<div class="container" th:fragment="corpo"> 
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+<!--            <li class="breadcrumb-item active"><a style="color: #3c7982;"><strong th:text="'Seu perfil de usuário: '+${user.military.post.abbreviation}+' '+${user.military.war_name}"></span></strong> </a></li>
+            &nbsp;<a href="" class="btn btn-link" data-target="#modal-basico" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a> -->
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Seu Perfil de Usuário</strong></a> </li> 
+            &nbsp;<a href=""  data-target="#modal-basico" data-toggle="modal"><i class="fa fa-fw fa-info-circle"></i></a> 
+    </ol>
+          <!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body"  style="text-align: justify"> 
+              Aqui estão listadas todas as informações do seu cadastro de usuário. Caso queira editá-las clique em "Editar Meus Dados".
+          </div>
+        </div>
+   </div>
+</div>   
+        
+        <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-user-o"></i> <strong>Dados de usuário</strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <p>
+            Nome de usuário: <span th:text="${user.username}"></span><br>
+            Nível de permissão: <span th:text="${user.classe}"></span><br>
+            Último acesso:           <br>
+            </p>
+          </div>
+        </div>
+        </div>
+       <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-university"></i> <strong>Dados de militar</strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <p>           
+            Nome de guerra: <span th:text="${user.military.war_name}"></span><br>
+            Identidade militar: <span th:text="${user.military.military_identitiy}"></span><br>
+            Segmento:  <span th:text="${user.military.gender}"></span><br>   
+            Unidade de origem: <span th:text="${user.military.militaryUnit.MU_initials}"></span><br>
+            Posto/Graduação:<span th:text="${user.military.post}"></span><br>
+            
+            </p>
+          </div>
+        </div>
+        </div>
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-id-card-o"></i> <strong>Dados pessoais</strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <p>
+            Nome completo: <span th:text="${user.military.name}"></span><span th:text="${user.military.surname}"></span><br>
+            Data de nascimento
+            </p>
+            <hr>
+             <h5>Endereço</h5>
+            <p>    
+            Rua: <span th:text="${user.military.address.street}"></span><br>
+            Nro: <span th:text="${user.military.address.number}"></span><br>
+            Bairro: <span th:text="${user.military.address.neighborhood}"></span><br>
+            Cidade/Município: <span th:text="${user.military.address.zone.county_name}"></span><br>
+            Estado: <span th:text="${user.military.address.zone.state_name}"></span><br>
+            CEP:<span th:text="${user.military.address.postal_code}"></span><br>
+            Telefones para contato (1): <span th:text="${user.military.phone1}"></span><br>
+            Telefones para contato (2): <span th:text="${user.military.phone2}"></span><br>
+            Email: <span th:text="${user.military.email}"></span><br></p>
+          </div>
+              
+        </div>
+    <br>
+     </div>    
+        <div class="card mb-3">
+      <a class="btn btn-secondary btn-sm" th:href="@{/userControl/preUpdate/{id}(id=${user.id})}" >Editar Meus Dados</a>
+      </div> 
+          
+      <br>
+     
+      <!-- /.container-fluid-->
+</div><br></html><br><br>

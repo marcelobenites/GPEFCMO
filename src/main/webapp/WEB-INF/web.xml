@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ B ADM CMO - Base Administrativa do Comando Militar do Oeste
+ Desenvolvido por DTI (Departamento de Tecnologia da Informação)
+ 2018 - Todos os Direitos Reservados
+-->
+
+
+<root>
+<!--   <filter>
+  <filter-name>dandelionFilter</filter-name>
+  <filter-class>com.github.dandelion.core.web.DandelionFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>dandelionFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  <dispatcher>REQUEST</dispatcher> 
+  <dispatcher>FORWARD</dispatcher>
+  <dispatcher>INCLUDE</dispatcher>
+  <dispatcher>ERROR</dispatcher>
+</filter-mapping> 
+
+
+
+ Dandelion servlet definition and mapping 
+<servlet>
+  <servlet-name>dandelionServlet</servlet-name>
+  <servlet-class>com.github.dandelion.core.web.DandelionServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>dandelionServlet</servlet-name>
+  <url-pattern>/*</url-pattern> 
+</servlet-mapping>-->
+
+
+</root>

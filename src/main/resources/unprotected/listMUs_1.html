@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+
+    <div class="container" th:fragment="corpo">
+
+     <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Gerenciamento de Unidades Militares</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+         &nbsp;<a href="" data-target="#modal-basico" data-toggle="modal"><i style="vertical-align:middle" class="fa fa-fw fa-info-circle"></i></a> 
+       </ol>
+<!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span> </button> 
+        </div>
+        <div class="modal-body" style="text-align: justify"> 
+            Abaixo esta listada sua unidade militar e as unidades subordinadas a ela.                  
+            <a sec:authorize="hasAuthority('SUPERADMIN')">Também estão disponíveis para o seu perfil de SUPER-ADMINISTRADOR opções para inclusão, exclusão, edição e gerenciamento de unidades cadastradas.</a>
+            <a sec:authorize="hasAuthority('ADMIN')">Também estão disponíveis para o seu perfil de ADMINISTRADOR opções para o gerenciamento de unidades cadastradas.</a>                           
+            <a sec:authorize="hasAuthority('READ_WRITE')">Também estão disponíveis para o seu perfil de EDITOR opções para o gerenciamento da sua unidade.</a>                           
+            <a sec:authorize="hasAuthority('READ_ONLY')">Também estão disponíveis para o seu perfil de LEITOR opção para explorar informações de unidades cadastradas.</a>                           
+        </div>        
+      </div>
+   </div>
+</div><hr>
+    
+    
+       <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+        </div>
+
+        <table  class="table table-hover tb">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Id</th>
+                    <th>Telefone</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>joaosilva@gmail.com</th>
+                    <td>66672</td>
+                    <td>941-964-8535</td>
+                    <td>http://gmail.com</td>
+                </tr>
+            
+                <tr>
+                    <th>eduardopaes@yahoo.net</th>
+                    <td>35889</td>
+                    <td>941-964-9543</td>
+                    <td>http://yahoo.net</td>
+                </tr>
+
+                <tr>
+                    <th>jabbathehutt@varl.com</th>
+                    <td>66672</td>
+                    <td>941-964-8535</td>
+                    <td>http://varl.com</td>
+                </tr>
+
+                <tr>
+                    <th>timhobby@flexomat.com</th>
+                    <td>66672</td>
+                    <td>941-964-8535</td>
+                    <td>http://flexomat.com</td>
+                </tr>
+
+                <tr>
+                    <th>larisalascaster@moda.info</th>
+                    <td>66672</td>
+                    <td>941-964-8535</td>
+                    <td>http://moda.info</td>
+                </tr>  
+
+                <tr>
+                    <th>jamestiberiuskirk@enterprise.us</th>
+                    <td>66672</td>
+                    <td>941-964-8535</td>
+                    <td>http://enterprise.us</td>
+                </tr>                               
+            </tbody>
+        </table>
+
+</html>

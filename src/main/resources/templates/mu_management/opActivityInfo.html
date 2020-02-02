@@ -1,0 +1,197 @@
+<!-- Apresenta informações gerais cadastradas para uma pef como subpágina inicial da parte de gerencimento-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+    <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 300px;  /* The height is 400 pixels */
+        width: 60%;  /* The width is the width of the web page */
+        margin-left: auto;
+        margin-right: auto;
+       }
+    </style>
+  </head>
+
+    <div class="card mb-3">
+        <div class="card-header"> <i class="fa fa-list-alt">&nbsp;</i> <strong>Informações de Atividade operacional</strong> </div>
+        
+    </div>
+
+    
+<div th:if="${operationalActivity.status.description}=='Em planejamento'" class="row bs-wizard" style="border-bottom:0;justify-content: center;">       
+   
+    <div class="col-3 bs-wizard-step complete">
+      <div class="text-center bs-wizard-stepnum">Em planejamento</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+    </div>
+    <div class="col-3 bs-wizard-step disabled"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Em operação</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+     </div>
+    <div class="col-3 bs-wizard-step disabled"><!-- active -->
+      <div class="text-center bs-wizard-stepnum">Concluída</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">                  </div>
+    </div>
+</div>      
+<div th:if="${operationalActivity.status.description}=='Em curso'" class="row bs-wizard" style="border-bottom:0;justify-content: center;">       
+    <div class="col-3 bs-wizard-step complete">
+      <div class="text-center bs-wizard-stepnum">Em planejamento</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+    </div>
+    <div class="col-3 bs-wizard-step complete"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Em operação</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+     </div>
+    <div class="col-3 bs-wizard-step disabled"><!-- active -->
+      <div class="text-center bs-wizard-stepnum">Concluída</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">                  </div>
+    </div>
+</div>      
+<div th:if="${operationalActivity.status.description}=='Realizada'" class="row bs-wizard" style="border-bottom:0;justify-content: center;">       
+    <div class="col-3 bs-wizard-step complete">
+      <div class="text-center bs-wizard-stepnum">Em planejamento</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+    </div>
+    <div class="col-3 bs-wizard-step complete"><!-- complete -->
+      <div class="text-center bs-wizard-stepnum">Em operação</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+     </div>
+    <div class="col-3 bs-wizard-step complete"><!-- active -->
+      <div class="text-center bs-wizard-stepnum">Concluída</div>
+      <div class="progress"><div class="progress-bar"></div></div>
+      <a href="#" class="bs-wizard-dot"></a>
+      <div class="bs-wizard-info text-center">                  </div>
+    </div>
+</div>      
+
+   
+    
+    <div th:unless="${operationalActivity.latitude}!=null and ${operationalActivity.longitude}!='null'" class="row"  style="justify-content: center;">  
+          <div class="col-xl-10 col-sm-10 mb-3" style="justify-content: center;">
+            <div class="card text-center text-warning bg-light o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon"> 
+                </div>
+                  <div class="mr-auto">  <i class="fa fa-fw fa-info-circle"></i><strong> Localização no mapa não será exibida. É necessário cadastrar latitude e longitude da operação.</strong>
+        </div>
+              </div>
+              </div>
+          </div></div>  
+     <!--The div element for the map -->
+    <div  th:if="${operationalActivity.latitude}!=null and ${operationalActivity.longitude}!='null'">
+    <div id="map"></div>
+    <script type="text/javascript" th:inline="javascript">
+// Initialize and add the map
+function initMap() {
+    /*<![CDATA[*/
+    //PLOTA OS PONTOS DE OPERAÇÕES NO MAPA
+    var operation = /*[[${operationalActivity}]]*/
+    //doSomething(theList[i]);
+    console.log("NOME DA OPERAÇÃO");
+    console.log(operation.name);
+    console.log("Latitude: "+operation.latitude);
+    console.log("Longitude: "+operation.longitude);
+    var OP = {lat:operation.latitude, lng:operation.longitude};
+// The map, centered at OPERATION
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: OP});
+    var test;
+    //muda a cor do ícone de acordo com o status da operação
+    if(operation.status.localeCompare("PLAN") == 0){
+        console.log("Figura marcada EM PLANEJAMENTO");
+        test= '/GPEFCMO/images/icons/oa1.png';
+    }else if(operation.status.localeCompare("DOING")==0){
+        test= '/GPEFCMO/images/icons/oa2.png';
+    }else if(operation.status.localeCompare("DONE")==0){
+        test= '/GPEFCMO/images/icons/oa3.png';
+    }else{
+        test= '/GPEFCMO/images/icons/oaB.png';
+    }
+    
+    var image = {
+        scaledSize: new google.maps.Size(38, 38),
+        url: test           
+    };
+        console.log("posição - "+OP.lat+" "+OP.lng);
+    var marker = new google.maps.Marker({
+        position: OP,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:operation.name,//string que será exibida quando passar o mouse no marker
+        icon: image
+    });
+    
+    /*]]>*/
+  
+  
+  
+  
+}
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXDUZf4RHIj7ZLR2ldNxIygRVMGiTR9Q&callback=initMap">
+    </script>
+    </div>    
+    <br>      
+        
+    <div class="card mb-3">
+    <div class="card-body">
+        <strong>Nome:</strong> <span th:text="${operationalActivity.name}"></span><br>
+        <strong>Data da última alteração:</strong> <span th:text="${operationalActivity.last_update}"></span><br>
+        <strong>Última alteração feita por:</strong> <span th:text="${operationalActivity.last_author.post.abbreviation}+' '+${operationalActivity.last_author.war_name}"></span><br>
+            <br>    
+        <strong><h7>Data/hora</h7></strong>   <br>     
+            <strong>&nbsp;&nbsp;Data/hora estimadas para início:</strong><span th:text="${operationalActivity.estimated_start_date}+' '+${operationalActivity.estimated_start_time}"></span><br>
+            <strong>&nbsp;&nbsp;Data/hora estimadas para término:</strong><span th:text="${operationalActivity.estimated_finish_date}+' '+${operationalActivity.estimated_finish_time}"></span><br>
+            <strong>&nbsp;&nbsp;Data/hora reais de início:</strong><span th:text="${operationalActivity.real_start_date}+' '+${operationalActivity.real_start_time}"></span><br>
+            <strong>&nbsp;&nbsp;Data/hora reais de término:</strong><span th:text="${operationalActivity.real_finish_date}+' '+${operationalActivity.real_finish_time}"></span><br>
+        <br>
+        <strong><h7>Dados de percurso</h7></strong>   <br>     
+            <strong>&nbsp;&nbsp;Latitude (local da operação):</strong><span th:text="${operationalActivity.latitude}"></span><br>
+            <strong>&nbsp;&nbsp;Longitude (local da operação):</strong><span th:text="${operationalActivity.longitude}"></span><br>
+            <strong>&nbsp;&nbsp;Distância da sede (Km):</strong><span th:text="${operationalActivity.headquarter_distance}"></span><br>
+            <strong>&nbsp;&nbsp;Descrição da situação das estradas:</strong><span th:text="${operationalActivity.roads}"></span><br>
+
+        <br>
+        <strong><h7>Região abrangida:</h7></strong>   <br>     
+            <span th:text="${operationalActivity.region}"></span><br>
+
+        <br>
+        <strong><h7>Objetivo/finalidade</h7></strong>   <br>     
+            <span th:text="${operationalActivity.main_goal}"></span><br>
+
+        <br>
+        <strong><h7>Resultados da missão:</h7></strong>   <br>     
+            <span th:text="${operationalActivity.report}"></span><br>
+
+        <br>
+        <strong><h7>Alterações na missão:</h7></strong>   <br>     
+            <span th:text="${operationalActivity.force_alterations}"></span><br>
+        <strong><h7>Alterações de material:</h7></strong>   <br>     
+        <br>
+            <span th:text="${operationalActivity.supply_alterations}"></span><br>
+        <strong><h7>Órgãos e Agências participantes:</h7></strong>   <br>     
+        <br>
+            <span th:text="${operationalActivity.supporters}"></span><br>
+    </div>
+    </div> 
+
+    <br> 
+        
+    </div>
+</html>

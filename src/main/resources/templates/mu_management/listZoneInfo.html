@@ -1,0 +1,155 @@
+<!-- Apresenta informações gerais cadastradas para PEF ou Esqd/Pel C Mec Dst com submenu para gerenciamento-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+        <br> 
+    <div class="card mb-3">
+        <div class="card-header"> <i class="fa fa-list-alt">&nbsp;</i> <strong>Informações gerais sobre o Município <span th:text="${zone.county_name}+' - '+${zone.state_name}"></span></strong> 
+        </div>
+        <div class="card-body">    
+            <strong><h7>1) Fronteira</h7></strong> <br>
+            <h7>País fronteiriço: </h7><span th:text="${zone.frontier_countries}"></span><br>
+            <h7>Unidade Militar fronteiriça: </h7><span th:text="${zone.frontier_militaryUnit.MU_name}"></span><br>
+            <h7>Tipo de Fronteira: </h7><span th:text="${zone.frontier_type}"></span><br>
+            <h7>Descrição: </h7><span th:text="${zone.frontier_description}"></span><br>
+            
+            <hr>
+            <strong><h7>2) Autoridades </h7></strong><br>
+            <h7>Prefeito: </h7><span th:text="${zone.mayor}"></span><br>
+            <h7>Vereadores: </h7><span th:text="${zone.councilmen}"></span><br>
+            <h7>Juiz: </h7><span th:text="${zone.judge}"></span><br>
+            <h7>Promotor: </h7><span th:text="${zone.prosecutor}"></span><br>
+            <h7>Outras autoridades: </h7><span th:text="${zone.other_authorities}"></span><br>
+
+
+            <hr>
+            <strong><h7>Indígenas </h7></strong><br>
+            <h7>FUNAI e DSEI: </h7><span th:text="${zone.funai_dsei}"></span><br>
+            <h7>Etnias: </h7><span th:text="${zone.ethnicities}"></span><br>
+            <h7>Problemas em áreas indígenas: </h7><span th:text="${zone.problems_with_indigenous}"></span><br>
+
+            <hr>
+            <strong><h7>Movimentos reivindicatórios </h7></strong><br>
+            <span th:text="${zone.claim_movements}"></span><br>
+
+          
+
+            <hr>
+            <strong><h7>ONGs </h7></strong><br>
+            <span th:text="${zone.ngos}"></span><br>
+
+        <strong><h7>Segurança e Defesa Civil não existente / existente (ativa a tabela abaixo)</h7></strong><br>
+        <span th:if="${zone.security_list==null}">Não há registro</span>  
+        <div th:if="${zone.security_list!=null}" class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover tb">
+                            <thead>
+                                <tr>
+                                    <th>OSPF</th>
+                                    <th>Efetivo</th>
+                                    <th>Natureza da Unidade</th>
+                                    <th>Cmt/Ch/Dir/Del</th>
+                                    <th>Vtr (Tipo/Qnt)</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="ospf : ${zone.security_list}">
+                                    <td th:text="${ospf.category.description}"></td>                                    
+                                    <td th:text="${ospf.total_staff}"></td>                                    
+                                    <td th:text="${ospf.command}"></td>                                    
+                                    <td th:text="${ospf.nature}"></td>                                    
+                                    <td th:text="${ospf.vtr}"></td>  
+                                    <td th:text="${muaf.observations}"></td>                                    
+                                    <td>                                            
+                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>     
+            
+        
+  
+<br> 
+    <hr>
+    
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-map-o">&nbsp;</i> <strong>Informações de Localização e Contato</strong> </div>
+          <div class="card-body">
+                
+ 
+    <hr>
+    <strong><h7>Educação</h7></strong> <br>
+    <h7>Faculdade(s): </h7><span th:text="${zone.universities}"></span><br>
+    <h7>Demais escolas: </h7><span th:text="${zone.schools}"></span><br>
+    
+    <hr>
+    <h7>Saúde</h7> <br>
+    <h7>Hospital: </h7><span th:text="${zone.hospitals}"></span><br>
+    <h7>Posto de Saúde:</h7><span th:text="${zone.health_posts}"></span><br>
+    <h7>Sistema de Evacuação:</h7><span th:text="${zone.evacuation_system}"></span><br>
+        
+    <hr>
+    <strong><h7>Infraestrutura</h7></strong> <br>
+    <strong><h7>Telecomunicações: </h7></strong><span th:text="${zone.communication}"></span><br>
+    <strong><h7>Transporte público:</h7></strong><span th:text="${zone.publicTransport}"></span><br>
+    <strong><h7>Rodovias/Estradas:</h7></strong><span th:text="${zone.highways}"></span><br>
+    <strong><h7>Porto:</h7></strong><span th:text="${zone.port}"></span><br>
+    
+
+<!--    <strong><h7>Aeródromo</h7></strong><br>
+    <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover tb">
+                            <thead>
+                                <tr>Tipo de Aeródromo</tr>
+                                <td>
+                                    <th>Controlado</th>
+                                    <th>Homologado</th>
+                                    <th>Internacional</th>
+                                    <th>Militar</th>
+                                    <th>Público</th>
+                                    
+                                </td>
+                                <tr>
+                                    <th>Abastecimento AVGÁS</th>
+                                    <th>Abastecimento JET A-1</th>
+                                    <th>Balizamento Noturno</th>
+                                    <th>Heliponto</th>
+                                    <th>Pista > 1.000 m</th>
+                                    <th>Pista Pavimentada</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="muaf : ${muAdditionalFractions}">
+                                    <td th:text="${muaf.fraction_name}"></td>                                    
+                                    <td th:text="${muaf.total_staff}"></td>                                    
+                                    <td th:text="${muaf.address.street}+' '+${muaf.address.number}"></td>                                    
+                                    <td 
+                                        <a th:text="${muaf.address.latitude}"></a>                                    
+                                        <a th:text="${muaf.address.longitude}"</a>
+                                    </td>                                    
+                                    <td th:text="${muaf.fraction_tel}"></td>                                    
+                                    <td>   
+                                          
+                                      <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-secondary btn-sm"  th:href="@{/pefEsqdPelControl/preUpdateMUAdditionalFractions/{id}(id=${muas.id})}" >Editar</a>
+                                       <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-danger btn-sm"  th:href="@{/pefEsqdPelControl/removeMUAdditionalFractions/{id}(id=${muas.id})}" >Excluir</a>                      	
+                                    <a class="btn btn-info btn-sm" th:href="@{/supplyControl/moreInfo/{id}/{supplyClass}(id=${si.id},supplyClass=${supplyClass})}"  >+Info</a>    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>     -->
+            </div>
+             
+    </div> 
+    <br>   
+<a class="btn btn-info btn-sm" th:href="@{/militaryUnitControl/preUpdate/{id}(id=${militaryUnit.id})}"><i class="fa fa-fw fa-edit"></i>Editar informações</a>
+ 
+     <hr class="mt-2">
+         
+    </div>
+    <br> 
+</html>

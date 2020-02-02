@@ -1,0 +1,146 @@
+<div class="container" th:fragment="subCorpo">
+ 
+    
+    <!--TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Edição de informações de pelotão</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+    </ol>
+ 
+    <small> <i class="fa fa-fw fa-info-circle"></i><i> Esta opção permite a atualização de informações básicas da unidade que podem ser feitas por usuários habilitados. A alteração de outras informações deve ser solicitada com abertura de chamado <a href="http://sistemas.badmapcmo.eb.mil.br/glpi/">(GLPI)</a>. </i></small>
+<!--            <h5>Dados gerais</h5>   -->
+    
+<!--            th:accept-charset="ISO-8859-1"-->
+<br><hr><div>
+    	<form th:action="@{/muInfoControl/updateMainInfo}"  th:object="${militaryUnit}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+
+                 <div class="col">    
+                    <label th:for="MU_name">Nome da unidade: </label>
+                    <input type="text" class="form-control" id="MU_name" th:field="*{MU_name}"/>
+                    <span th:if="${#fields.hasErrors('MU_name')}" th:errors="*{MU_name}" class="label label-danger"></span>
+                </div>
+                <div class="col">
+                    <label th:for="MU_tel">Telefone: </label>
+                    <input type="tel" class="form-control" id="MU_tel" th:field="*{MU_tel}"/>
+                    <span th:if="${#fields.hasErrors('MU_tel')}" th:errors="*{MU_tel}" class="label label-danger"></span>        
+                </div> 
+            
+                <div class="col">    
+                    <label th:for="MU_website">Website da unidade: </label>
+                    <input type="text" class="form-control" id="website" th:field="*{MU_website}"/>
+                    <span th:if="${#fields.hasErrors('MU_website')}" th:errors="*{MU_website}" class="label label-danger"></span>
+                </div> 
+                <div class="col">    
+                    <label th:for="MU_email">E-mail: </label>
+                    <input type="email" class="form-control" id="MU_email" th:field="*{MU_email}"/>
+                    <span th:if="${#fields.hasErrors('MU_email')}" th:errors="*{MU_email}" class="label label-danger"></span>
+                </div> 
+            </div> 
+             <div class="row">
+                <div class="col">   
+                    <label th:for="MU_history">História: </label>
+                    <textarea type="text" class="form-control" id="MU_history" th:field="*{MU_history}"></textarea>
+                    <span th:if="${#fields.hasErrors('MU_history')}" th:errors="*{MU_history}" class="label label-danger"></span>
+                </div>    
+            </div> 
+<br><hr>
+                        
+            <h5>Localização</h5>   
+ 
+            <div class="row">
+                <div class="col">  
+                    <label th:for="street">Rua: </label>
+                    <input type="text" class="form-control" id="nome" th:field="*{address.street}"/>
+                    <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="label label-danger"></span>             
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col">  
+                    <label th:for="complement">Complemento: </label>
+                    <input type="text" class="form-control" id="nome" th:field="*{address.complement}"/>
+                    <span th:if="${#fields.hasErrors('address.complement')}" th:errors="*{address.complement}" class="label label-danger"></span>             
+                </div>
+                <div class="col">  
+                    <label th:for="number">Nro: </label>
+                    <input type="text" class="form-control" id="nome" th:field="*{address.number}"/>
+                    <span th:if="${#fields.hasErrors('address.number')}" th:errors="*{address.number}" class="label label-danger"></span>             
+                </div>
+                <div class="col">
+                    <label th:for="postal_code">CEP: </label>
+                    <input type="text" class="form-control" id="sobrenome" th:field="*{address.postal_code}"/>
+                    <span th:if="${#fields.hasErrors('address.postal_code')}" th:errors="*{address.postal_code}" class="label label-danger"></span>             
+                </div>
+            </div><!--
+-->            <div class="row">
+                <div class="col-6">  
+                    
+                 <label th:for="currentZones">Município: </label>
+                      <select th:field="*{address.zone.id}" class="custom-select" id="zone" name="educationDate[]">
+                        <option value=""></option>
+                        <option th:each="currentZones : ${zones}" th:value="${currentZones.id}" th:text="${currentZones.county_name}+' - '+${currentZones.state_name}"></option>       
+                      </select>
+                
+                
+                </div>  
+<!--                <div class="col-4">
+                    <label th:for="zStates">Estado: </label>
+                        <select th:field="*{address.zone.state_name}" id="state_name" class="custom-select" required >
+                            <option value=""></option>
+                            <option th:each="state : ${zStates}" th:value="${state}" th:text="${state.description}"></option>
+                        </select>
+                    
+                </div> -->
+                <div class="col">  
+                    <label th:for="latitude">Latitude: </label>
+                    <input type="text" class="form-control" id="latitude" th:field="*{address.latitude}"/>
+                    <span th:if="${#fields.hasErrors('address.latitude')}" th:errors="*{address.latitude}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">Longitude: </label>
+                    <input type="text" class="form-control" id="longitude" th:field="*{address.longitude}"/>
+                    <span th:if="${#fields.hasErrors('address.longitude')}" th:errors="*{address.longitude}" class="label label-danger"></span>             
+                </div>                
+            </div>
+<br>           
+      
+<hr>    
+         <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
+            </div>
+           
+        </form>
+        
+        
+        
+    </div>
+
+</div>
+    
+
+
+
+<!--         
+ <div class="panel panel-default">
+  <div class="panel-body">
+  <div id="education_fields"></div>
+  
+<div class="col-sm-3 nopadding">
+  <div class="form-group">
+    <div class="input-group">
+      <select class="form-control" id="educationDate" name="educationDate[]">
+        <option value="Selecione uma unidade"></option>
+        <option th:each="currentMUss : ${units}" th:value="${currentMUss.MU_name}" th:text="${currentMUss.MU_name}"></option>       
+      </select>
+      <div class="input-group-btn">
+        <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="fa fa-plus" aria-hidden="true"></span> </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+  
+  </div>
+  <div class="panel-footer"><small>Press <span class="fa fa-plus"></span> to add another form field :)</small>, <small>Press <span class="fa fa-minus"></span> to remove form field :)</small></div>
+</div>-->

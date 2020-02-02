@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="subMenu" th:fragment="subMenu">
+    <div id="tooplate_menu" class="ddsmoothmenu" style="font-size: 9px">
+            <!-- Brand/logo -->
+  <!--<img src="/images/icons/Ploc.png" alt="pelotões" style="width:35px;">-->
+          <ul>
+              <li><a href="#">Informações</a>
+                  <ul>
+                      <li><a style="color: black;" th:href="@{/pefEsqdPelControl/navigateMU/{id}(id=${militaryUnit.id})}">Visualizar Informações</a></li>
+<!--                      <li><a style="color: black;" th:href="@{/muInfoControl/listMUInfo/{id}(id=${militaryUnit.id})}">Editar Informações</a></li>-->
+<!--                      <li><a style="color: black;" th:href="@{/muInfoControl/registerMuInfo/{id}(id=${militaryUnit.id})}">Nova Informação Compl.</a></li>-->
+                  </ul>
+              </li>
+              <li><a href="#">Infraestrutura/Logística</a>
+                  <ul>
+                      <li><a style="color: black;" href="#">Suprimentos</a>
+                          <ul>
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSI')}">Classe I</a></li><!--Material de Subsistência-->
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSII')}">Classe II</a></li><!--Material de Intendência-->
+                              <li><a style="color: black;" href="#">Classe III</a>
+                                  <ul>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII1')}">Gás de cozinha</a></li>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII2')}">Gasolina</a></li>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII3')}">Óleo diesel</a></li>
+                                  </ul></li><!--Combustíveis e Lubrificantes-->
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIV')}">Classe IV</a></li><!--Material de Construção-->
+                              <li><a style="color: black;" >Classe V</a>
+                                  <ul>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSV1')}">Munição</a></li>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSV2')}">Armamento</a></li>
+                                  </ul></li><!--Armamento e Munição-->
+                              <li><a style="color: black;" href="#">Classe VI</a><!--Material de Engenharia e de Cartografia-->
+                                  <ul>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVI1')}">Geradores</a></li>                       
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVI2')}">GPS</a></li>
+                                  </ul> 
+                              </li><!--Material de Engenharia e de Cartografia-->
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVII')}">Classe VII</a><!--Material de Comunicações, Eletrônica e de Informática--></li>
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVIII')}">Classe VIII</a></li><!--Material de Saúde-->
+                              <li><a style="color: black;" href="#">Classe IX</a><!--Material Naval, de Motomecanização e de Aviação-->
+                                  <ul>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX1')}">Viaturas</a></li>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX2')}">Embarcações</a></li>
+                                      <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX3')}">Motores de popa</a></li>
+                                  </ul>
+                              </li>
+                              <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSX')}">Classe X</a></li><!--Materiais não incluídos nas demais classes-->
+                          </ul>
+                      </li>
+                      <li><a style="color: black;" href="#">Infraestrutura/Serviços</a>
+                          <ul>
+                              <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC2')}">Água/Esgoto</a></li>
+                              <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC3')}">Coleta de lixo</a></li>
+                              <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC4')}">Energia elétrica</a></li>
+                              <!--<li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC5')}">Convênios</a></li>-->
+                              <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC1')}">Outros serviços</a></li>
+                          </ul>
+                      </li>
+                      <li><a style="color: black;" href="#">Instalações</a>
+                          <ul>
+                              <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='PNR')}">PNR</a></li>
+                              <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Estocagem')}">Estocagem</a></li>
+                              <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Sala de Armas')}">Salas de Armas</a></li>
+                              <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Outras Instalações')}">Outras instalações</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li><a href="#">Administração</a>
+                  <ul>
+                      <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')"> <a style="color: black;" th:href="@{/commandControl/listCommanders/{id}(id=${militaryUnit.id})}">Comando</a> </li>
+                      <li><a style="color: black;" th:href="@{/militaryControl/listMilitaryForMU/{id}(id=${militaryUnit.id})}">Controle de Efetivo</a></li>
+                      <li><a style="color: black;" th:href="@{/operationalActivityControl/listOperationalActivities/{id}(id=${militaryUnit.id})}">Controle de Operações</a></li>
+                  </ul>
+              </li>
+              <li><a href="#">Região</a>
+                  <ul>
+                      <li><a style="color: black;" th:href="@{/pelZoneControl/listPelZones/{id}(id=${militaryUnit.id})}">Municípios Abrangidos</a></li>
+                  </ul>
+              </li>                                       
+          </ul>
+          <br style="clear: left" />
+</div>
+    
+    <!--Modal de Info-->
+    <div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span> </button> </div>
+                <div class="modal-body"> 
+                    Seção de gerenciamento de Unidade Militar do tipo Pelotão/Destacamento. O submenu acima apresenta as opções de gerenciamneto disponíveis para o seu perfil de usuário.           
+                </div>
+                <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                                                   data-dismiss="modal">Fechar</button>             
+                </div>
+            </div>
+        </div>
+    </div>   
+    <div class="mb-0 mt-4"> <i class="fa fa-crosshairs"></i>  <spam class="card-title mb-1" th:text="${militaryUnit.MU_name}"></spam><a href="#" data-target="#modal-basico" data-toggle="modal"> <i style="color: blue" class="fa fa-fw fa-info-circle"></i></a><br></div>
+    <hr>  
+</div>
+</html>

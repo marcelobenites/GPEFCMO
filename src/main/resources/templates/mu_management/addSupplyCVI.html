@@ -1,0 +1,60 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${supplyItemCVI.id == null} ? #{title.save.supplyItemCVI} : #{title.update.supplyItemCVI}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${supplyItemCVI.id == null} ? @{/supplyControl/saveSupplyCVI} : @{/supplyControl/updateSupplyCVI}"  th:object="${supplyItemCVI}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe VI -"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="serial">Número/Série:</label>
+                    <input th:type="text" class="form-control" id="serial" th:field="*{serial}"/>
+                    <span th:if="${#fields.hasErrors('serial')}" th:errors="*{serial}" class="label label-danger"></span>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col">    
+                    <label th:for="manufacturer">Fabricante: </label>
+                    <input required th:type="text" class="form-control" id="manufacturer" th:field="*{manufacturer}"/>
+                    <span th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="description">Tipo/Modelo: </label>
+                    <input required th:type="text" class="form-control" id="description" th:field="*{description}"/>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+              <div class="col-3">    
+                    <label th:for="year_of_manufacture">Ano de fabricação: </label>
+                     <input th:type="number" step="1.0" min="0"   class="form-control" id="year_of_manufacture" th:field="*{year_of_manufacture}"/>
+                    <span th:if="${#fields.hasErrors('year_of_manufacture')}" th:errors="*{year_of_manufacture}" class="label label-danger"></span>             
+               </div>                
+             </div> <br>
+            
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

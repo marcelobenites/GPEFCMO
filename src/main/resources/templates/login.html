@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">  
+
+    <title>GPEFCMO</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/tooplate_style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>--> 
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/onlineResources/bootstrap.css}"/> -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/nivo-slider.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/ddsmoothmenu.css}"/> 
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
+
+<body>
+    
+<!--    <script type="text/javascript" src="/onlineResources/bootstrap.js"></script> 
+    <script type="text/javascript" src="/onlineResources/jquery.js"></script>    -->
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>    
+    <script type="text/javascript" src="@{/js/ddsmoothmenu.js}"></script>    
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>      
+          
+    
+     <div id="tooplate_header_wrapper">
+    <div id="tooplate_header">
+        <!-- end of tooplate_menu --> </div></div>
+    <div id="tooplate_wrapper">
+      
+     <div id="tooplate_main">
+        <div id="content" class="float_l"> <br />
+            <div class="cleaner h40"></div>
+            <h2><span style="font-weight: bold;"><span style="color: #336666;">Acesso</span></span></h2>
+          
+            <div id="contact_form">
+                <p>O GPEFCMO é um sistema auxiliar no gerenciamento de Pelotões
+                 Especiais de Fronteira subordinados ao <a style="color: #336666;" target="_blank"
+                 title="CMO" href="http://intranet.cmo.eb.mil.br/">Comando Militar
+                 do Oeste (CMO)</a>. Para ter acesso ao sistema são necessários usuário e senha.</p>
+
+
+                <div>
+
+                  <form th:action="@{/login}" method="post">
+                             
+                    
+                      
+                      
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input class="form-control" type="text" name="username" placeholder="Usuário"/> 
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input class="form-control" type="password" name="password" placeholder="Senha"/>
+                      </div>
+                      <div class="form-group row">
+                        <br />
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-default"  >Entrar</button>
+                        </div>
+                        <div class="col-md-12 control">
+                            <div style="padding-top:15px; font-size:85%" >
+                                Problemas de acesso? 
+                            <a href="http://sistemas.badmapcmo.eb.mil.br/glpi/">
+                                Abra um chamado.
+                            </a>
+                            </div>
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger">Usuário/senha inválidos!</div>
+                            </div>
+
+                            <div th:if="${param.logout}">
+                                <div class="alert alert-info">Usuário desconectado!</div>
+                            </div>
+                        </div>  
+                      </div>
+                        
+                     </form>
+
+                </div>
+            </div>
+         <br />
+        </div>
+        <div id="sidebar" class="float_r" style="text-align: justify">
+          <div style="text-align: center;">
+              <img style="width: 114px; height: 164px;" alt="logo cmo" th:src="@{/images/img_cmo.png}" />
+              &nbsp;&nbsp;
+              <img style="height: 164px;border-right:2px solid #333;"></img>
+              &nbsp;&nbsp;
+              <img style="width: 117px; height: 167px;" alt="logo cmo" th:src="@{/images/distintivo_CCOP.png}" />              
+              <br />
+          </div>
+          <div class="cleaner h40"></div>
+          Sistema WEB produzido e gerenciado pela Seção de Tecnologia de Informação
+          (STI) da Base Administrativa do Comando Militar do Oeste. <FONT COLOR='red'> ATENÇÃO: esta é uma versão 
+          de testes do sistema, informações registradas nesta versão não estarão disponíveis 
+          na versão de lançamento. Em caso de falha ou instabilidade abra um chamado no GLPI. </FONT>
+          <br />
+          <br />
+          <div class="rp_pp">
+            <p>versão 0.3.0-alpha<span style="font-weight: bold;"><span style="color: #336666;"><br/>
+                </span></span></p>
+            <span style="font-weight: bold;"><span style="color: #336666;"> </span><span
+                style="color: #336666;"> </span></span></div>
+          <span style="font-weight: bold;"><span style="color: #336666;"> </span></span>
+<!--          <div class="cleaner h40"><span style="font-weight: bold;"><span style="color: #336666;">Acesso
+                ao FAQ</span></span></div>-->
+        </div>
+        <div class="cleaner"></div>
+      </div>
+          
+      <!-- END of tooplate_main --> </div>
+    <!-- END of tooplate_wrapper -->
+    <!-- END of tooplate_bottom_wrapper -->
+    <div id="tooplate_footer_wrapper">
+        <div id="tooplate_footer"> <span style="color: #bbc3c3;">Copyright © 2019 - STI B ADM AP/CMO</span></div>
+      <!-- END of tooplate_footer --> </div>
+    <!-- END of tooplate_footer_wrapper -->        
+</body>
+</html>

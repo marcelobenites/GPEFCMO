@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="container" th:fragment="corpo">
+ 
+    
+    <!--TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${zone.id == null} ? #{title.save.zone} : #{title.update.zone}"></strong></a> </li> 
+        <br><i><small>Seção de inclusão de municípios de responsabilidade do administrador do sistems. A inclusão de informações adicionais é feita pelos usuários.</small></i>
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+ 
+    <hr>
+    <div><h6><strong>Dados Gerais</strong><small><i>(*Campos obrigatórios)</i></small></h6>
+    	<form th:action="${zone.id == null} ? @{/zoneControl/save} : @{/zoneControl/update}"  th:object="${zone}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{frontier_militaryUnit.id}" value="${frontier_militaryUnit.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="county_name">Nome*: </label>
+                    <input required th:type="text" class="form-control" id="county_name" th:field="*{county_name}"/>
+                    <span th:if="${#fields.hasErrors('county_name')}" th:errors="*{county_name}" class="label label-danger"></span>
+                </div>
+                <div class="col">
+                    <label th:for="country_name">País*: </label>
+                    <input type="text" class="form-control" id="country_name" th:field="*{country_name}"/>
+                    <span th:if="${#fields.hasErrors('country_name')}" th:errors="*{country_name}" class="label label-danger"></span>        
+                </div> 
+             </div> 
+           
+            <div class="row">
+                <div class="col-4">
+                    <label th:for="zStates">Estado*: </label>
+                        <select th:field="*{state_name}" id="state_name" class="custom-select" required >
+                            <option value=""></option>
+                            <option th:each="state : ${zStates}" th:value="${state}" th:text="${state.description}"></option>
+                        </select>
+                    
+                </div>  
+                  
+            </div> 
+            <br>
+                <hr>
+               
+      
+            
+            
+<br>
+               
+      
+    
+      
+        
+       
+      
+            
+            
+        <div class="form-group">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+           
+        </form>
+        
+        
+        
+    </div>
+
+</div></html>

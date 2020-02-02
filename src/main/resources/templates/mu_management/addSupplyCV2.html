@@ -1,0 +1,110 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${supplyItemCV2.id == null} ? #{title.save.supplyItemCV2} : #{title.update.supplyItemCV2}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${supplyItemCV2.id == null} ? @{/supplyControl/saveSupplyCV2} : @{/supplyControl/updateSupplyCV2}"  th:object="${supplyItemCV2}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe V.2 -"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Modelo: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="type">Tipo: </label>
+                    <input required th:type="text" class="form-control" id="weapon_type" th:field="*{weapon_type}"/>
+                    <span th:if="${#fields.hasErrors('weapon_type')}" th:errors="*{weapon_type}" class="label label-danger"></span>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col">    
+                    <label th:for="manufacturer">Fabricante: </label>
+                    <input required th:type="text" class="form-control" id="manufacturer" th:field="*{manufacturer}"/>
+                    <span th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="serial">Nº de identificação: </label>
+                    <input required th:type="text" class="form-control" id="serial" th:field="*{serial}"/>
+                    <span th:if="${#fields.hasErrors('serial')}" th:errors="*{serial}" class="label label-danger"></span>
+                </div>
+                <div class="col-3">    
+                    <label th:for="year_of_manufacture">Ano de fabricação: </label>
+                     <input type="number" class="form-control" id="year_of_manufacture" th:field="*{year_of_manufacture}"/>
+                    <span th:if="${#fields.hasErrors('year_of_manufacture')}" th:errors="*{year_of_manufacture}" class="label label-danger"></span>             
+               </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                     <div class="form-group">
+                    <label th:for="armory">Localização (reserva): </label>
+                      <select required th:field="*{armory.id}" class="custom-select" id="armory" name="educationDate[]">
+                        <option value=""></option>
+                        <option th:each="armory : ${currentArmories}" th:value="${armory.id}" th:text="${armory.name}"></option>       
+                      </select>
+                    </div></div>
+              </div>
+               <div class="col-3">
+                <div class="form-group">
+                    <label th:for="status">Situação: </label>
+                        <select th:field="*{status}" id="status" class="custom-select">
+                            <option value=""></option>
+                            <option th:each="status : ${CIXstatus}" th:value="${status}" th:text="${status.description}"></option>
+                        </select>                
+                </div>        
+            </div>  
+            </div>   
+            <div class="row">
+                <div class="col">    
+                    <label th:for="description">Descrição:</label>
+                    <textarea th:type="textarea" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+            <div class="row">
+               
+                
+                
+<!--            </div>     
+
+            <div class="row">-->
+                
+               
+<!--                <div class="col"> 
+                    TODO veriricar se essa data deve ser gerada automaticamente
+                    <label th:for="last_update">Data de última atualização:</label>
+                    <input type="date" class="form-control" id="last_update" th:field="*{last_update}"/>
+                    <span th:if="${#fields.hasErrors('last_update')}" th:errors="*{last_update}" class="label label-danger"></span>             
+               </div>-->
+<!--                <div class="col">    
+                    <label th:for="name">Local de armazenagem:</label>
+                    <input th:type="text" class="form-control" id="title" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>-->
+                
+            </div> 
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

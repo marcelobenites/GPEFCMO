@@ -1,0 +1,126 @@
+<!--APRESENTA O EFETIVO DE UM PEF/DST-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    
+    <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Informações de efetivo da unidade</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+    <div class="container" th:fragment="subCorpo">  
+        <div th:if="!${#strings.isEmpty(message)}" class="row">
+            <div class="col-4">   
+                <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+                    <div class="alert alert-danger">
+                        <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+                    </div></div>
+            </div>
+        </div>  
+        
+<!--MODAIS-->         
+<div class="modal fade" id="modal-basico2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle"  style="color:blue"></i>  Info</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body"  style="text-align: justify">A existência deve ser informada sempre que superior a 5 dias, justificando o motivo/ação.
+          </div><hr>
+          <div class="modal-footer"> <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>             
+            </div>
+      </div>
+   </div>
+</div> 
+
+        
+        
+
+        <div class="card mb-3">
+            <div class="card-header"> <strong>Efetivo Geral da Unidade </strong>
+            &nbsp;<a class="btn btn-info btn-sm" sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" th:href="@{/pefEsqdPelControl/preUpdateMUGenStaff/{id} (id=${militaryUnit.id})}"><i class="fa fa-fw fa-edit"></i>Atualizar</a>
+            </div>
+            <div class="card-body" >
+                <div class="table-responsive" >
+                    <table >
+                        <thead>
+                            <tr>
+                                <th style="width: 100px"></th>
+                                <th style="width: 100px">Previsto</th> 
+                                <th style="width: 100px">Existente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr> 
+                                <td>Oficiais</td>
+                                <td th:text="${militaryUnit.staff.expected_officers}"></td>                       
+                                <td th:text="${militaryUnit.staff.current_officers}"></td>                       
+                            </tr>
+                            <tr> 
+                                <td>ST/Sgt</td>
+                                <td th:text="${militaryUnit.staff.expected_st_sgt}"></td>                       
+                                <td th:text="${militaryUnit.staff.current_st_sgt}"></td>                       
+                            </tr>
+                            <tr> 
+                                <td>Cabos</td>
+                                <td th:text="${militaryUnit.staff.expected_cb}"></td>                       
+                                <td th:text="${militaryUnit.staff.current_cb}"></td>                       
+                            </tr>
+                            <tr> 
+                                <td>Soldados</td>
+                                <td th:text="${militaryUnit.staff.expected_soldiers}"></td>                       
+                                <td th:text="${militaryUnit.staff.current_soldiers}"></td>                       
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th></th>              
+                                <th>Adultos</th> 
+                                <th>Crianças</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr> 
+                                <td>Familiares</td>
+                                <td th:text="${militaryUnit.staff.adult_relatives_amount}"></td>                       
+                                <td th:text="${militaryUnit.staff.children_amount}"></td>                       
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header"> 
+                    <i class="fa fa-table"></i> <strong> Efetivos de outras FFAA, OSPF e/ou Órgãos Federais</strong>
+                    &nbsp;<a class="btn btn-info btn-sm" sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" th:href="@{/pefEsqdPelControl/preAddMUAdtStaff/{id} (id=${militaryUnit.id})}"><i class="fa fa-fw fa-plus-circle"></i>Registro</a>
+            
+                    <!--&nbsp;<a href="" data-target="#modal-basico2" data-toggle="modal"> <i style="vertical-align:middle" class="fa fa-fw fa-plus-circle"></i></a>-->
+                    
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover tb">
+                            <thead>
+                                <tr>
+                                    <th>Organização</th>
+                                    <th>Descrição do efetivo</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="muas : ${muAdditionalStaffs}">
+                                    <td th:text="${muas.organization_name}"></td>                                    
+                                    <td th:text="${muas.description}"></td>                                    
+                                    <td>
+<!--                                      <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-secondary btn-sm"  th:href="@{/pefEsqdPelControl/preUpdate/{id}(id=${muas.id})}" >Editar</a>
+                                       <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-danger btn-sm"  th:href="@{/pefEsqdPelControl/removeMUAdditionalStaff/{id}(id=${muas.id})}" >Excluir</a>                      	
+                                         <a class="btn btn-info btn-sm" th:href="@{/supplyControl/moreInfo/{id}/{supplyClass}(id=${si.id},supplyClass=${supplyClass})}"  >+Info</a>    -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    </div>   
+</html>

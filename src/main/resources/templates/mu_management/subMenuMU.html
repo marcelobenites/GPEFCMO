@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="subMenu" th:fragment="subMenu" style="font-size: 9px">
+<div id="tooplate_menu" class="ddsmoothmenu">
+            <!-- Brand/logo -->
+  <!--<img src="/images/icons/Ploc.png" alt="pelotões" style="width:35px;">-->
+          <ul>
+            <li><a href="#">Informações</a>
+            <ul>
+                <li><a style="color: black;" th:href="@{/pefEsqdPelControl/navigateMU/{id}(id=${militaryUnit.id})}">Visualizar Informações</a></li>
+<!--                <li><a style="color: black;" th:href="@{/muInfoControl/listMUInfo/{id}(id=${militaryUnit.id})}">Editar Informações</a></li>
+                <li><a style="color: black;" th:href="@{/muInfoControl/registerMuInfo/{id}(id=${militaryUnit.id})}">Nova Informação</a></li>-->
+              </ul></li>
+<!--            <li><a href="#">Administração</a>
+              <ul>
+                <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')"> <a style="color: black;" th:href="@{/zoneControl/listAllZones}">Comando</a> </li>
+                <li><a style="color: black;" th:href="@{/militaryControl/listMilitaryForMU/{id}(id=${militaryUnit.id})}">Controle de Efetivo</a></li>
+                <li><a style="color: black;" href="#">Operações</a></li>
+              </ul>
+            </li>-->
+            <li><a href="#">Região</a>
+              <ul>
+                <li><a style="color: black;" th:href="@{/pelZoneControl/listPelZones/{id}(id=${militaryUnit.id})}">Municípios Abrangidos</a></li>
+                
+              </ul>
+            </li>
+           
+<!--            <li><a href="#">Contato</a></li>-->
+
+          </ul>
+          <br style="clear: left" />
+          
+</div> 
+    <!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body" style="text-align: justify"> 
+                Seção de gerenciamento de Unidade Militar. O submenu acima apresenta as opções de gerenciamneto disponíveis para o seu perfil de usuário. 
+          </div>
+            <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                data-dismiss="modal">Fechar</button>             
+            </div>
+      </div>
+   </div>
+    </div>   
+    <div class="mb-0 mt-4"> <i class="fa fa-crosshairs"></i>  <spam class="card-title mb-1" th:text="${militaryUnit.MU_name}"></spam><a href="#" data-target="#modal-basico" data-toggle="modal"> <i style="color: blue" class="fa fa-fw fa-info-circle"></i></a><br></div>
+    <hr>  
+</div>
+</html>

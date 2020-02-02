@@ -1,0 +1,177 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${supplyItemCI.id == null} ? #{title.save.supplyItemCI} : #{title.update.supplyItemCI}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${supplyItemCI.id == null} ? @{/supplyCIControl/saveSupplyCI} : @{/supplyCIControl/updateSupplyCI}"  th:object="${supplyItemCI}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe I -"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+            </div>
+             <div class="row">
+               
+                <div class="col">    
+                    <label th:for="description">Descrição:</label>
+                    <textarea th:type="text" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="expected_amount">Qtd. Prevista </label>
+                    <input th:type="text" class="form-control" id="expected_amount" th:field="*{expected_amount}"/>
+                    <span th:if="${#fields.hasErrors('expected_amount')}" th:errors="*{expected_amount}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="current_amount">Qtd. Existente </label>
+                    <input th:type="text" class="form-control" id="current_amount" th:field="*{current_amount}"/>
+                    <span th:if="${#fields.hasErrors('current_amount')}" th:errors="*{current_amount}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="metric_unit">Unid. de Medida </label>
+                    <input th:type="text" class="form-control" id="metric_unit" th:field="*{metric_unit}"/>
+                    <span th:if="${#fields.hasErrors('metric_unit')}" th:errors="*{metric_unit}" class="label label-danger"></span>
+                </div>
+                
+            </div>     
+
+            <div class="row">
+                <div class="col">    
+                    <label th:for="up_to">Suprido até: </label>
+                     <input type="date" class="form-control" id="up_to" th:field="*{up_to}"/>
+                    <span th:if="${#fields.hasErrors('up_to')}" th:errors="*{up_to}" class="label label-danger"></span>             
+               </div>
+<!--                <div class="col"> 
+                    TODO veriricar se essa data deve ser gerada automaticamente
+                    <label th:for="last_update">Data de última atualização:</label>
+                    <input type="date" class="form-control" id="last_update" th:field="*{last_update}"/>
+                    <span th:if="${#fields.hasErrors('last_update')}" th:errors="*{last_update}" class="label label-danger"></span>             
+               </div>-->
+                <div class="col">    
+                    <label th:for="name">Local de armazenagem:</label>
+<!--                    <input th:type="text" class="form-control" id="title" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>-->
+                </div>
+                
+            </div> 
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${structureT2.id == null} ? #{title.save.structureT2} : #{title.update.structureT2}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${structureT2.id == null} ? @{/structureControl/savestructureT2} : @{/structureControl/updateStructureT2}"  th:object="${structureT2}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                
+            
+                <div class="col-3">    
+                    <label th:for="locationPoint.latitude">Latitude:</label>
+                    <input th:type="number" class="form-control" id="latitude" th:field="*{locationPoint.latitude}"/>
+                    <span th:if="${#fields.hasErrors('locationPoint.latitude')}" th:errors="*{locationPoint.latitude}" class="label label-danger"></span>
+                </div>
+                <div class="col-3">    
+                    <label th:for="locationPoint.longitude">Longitude:</label>
+                    <input th:type="number" class="form-control" id="latitude" th:field="*{locationPoint.longitude}"/>
+                    <span th:if="${#fields.hasErrors('locationPoint.longitude')}" th:errors="*{locationPoint.longitude}" class="label label-danger"></span>
+                </div>
+                
+            </div>     
+            <div class="row">    
+                <div class="col">    
+                    <label th:for="function">Função/Objetivo: </label>
+                    <input required th:type="text" class="form-control" id="function" th:field="*{function}"/>
+                    <span th:if="${#fields.hasErrors('function')}" th:errors="*{function}" class="label label-danger"></span>
+                </div>
+            </div>
+             <div class="row">
+               
+                <div class="col">    
+                    <label th:for="description">Descrição:</label>
+                    <textarea th:type="text" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+                
+          
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

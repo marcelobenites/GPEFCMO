@@ -1,0 +1,41 @@
+
+<div class="container" th:fragment="subCorpo">
+ 
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${muInfo.id == null} ? #{title.save.muInfo} : #{title.update.muInfo}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${muInfo.id == null} ? @{/muInfoControl/saveInfo} : @{/muInfoControl/updateInfo}"  th:object="${muInfo}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{related_mu.id}" value="${militaryUnit.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="title">Título: </label>
+                    <input required th:type="text" class="form-control" id="title" th:field="*{title}"/>
+                    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="label label-danger"></span>
+                </div>
+                <div class="col-4">
+                    <label th:for="infoTypes">Tipo de informação: </label>
+                    <select th:field="*{info_type}" id="info_type" class="custom-select" required >
+                        <option value=""></option>
+                        <option th:each="type : ${infoTypes}" th:value="${type}" th:text="${type.description}"></option>
+                    </select>
+                </div> 
+                
+            </div> 
+            <div class="row">
+                 <div class="col">
+                    <label th:for="body">Texto: </label>
+                    <textarea th:type="text" style="height:250px;" class="form-control" id="body" th:field="*{body}"></textarea>
+                    <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="label label-danger"></span>        
+                </div> 
+            </div> 
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

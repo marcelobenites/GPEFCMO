@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+
+        <ol class="breadcrumb">
+          <!-- <li class="breadcrumb-item"> <a href="index.html">Fulano de tal</a> </li> -->
+          <li class="breadcrumb-item active"><span th:text="${military.post.description}"></span> <span th:text="${military.war_name}"></span></li>
+        </ol>
+        <div class="row">
+          <div class="col-12">
+             <h5>Cadastro do militar</h5>
+            <p>
+                Nome completo: <span th:text="${military.name}  "></span> <span th:text="${military.surname}"></span><br>
+            Nome de guerra: <span th:text="${military.war_name}"></span><br>
+            Data de nascimento:  <span th:text="${military.birth}"></span><br>   
+            Segmento:  <span th:text="${military.gender}"></span><br>   
+            Unidade de origem: <span th:text="${military.militaryUnit.MU_initials}"></span><br>
+            Posto/Graduação:<span th:text="${military.post}"></span><br>
+            Identidade militar: <span th:text="${military.military_identitiy}"></span><br></p>
+            
+            <h5>Endereço</h5>
+            <p>    
+            Rua: <span th:text="${military.address.street}"></span><br>
+            Nro: <span th:text="${military.address.number}"></span><br>
+            Bairro: <span th:text="${military.address.neighborhood}"></span><br>
+            Cidade/Município: <span th:text="${military.address.zone.county_name}"></span><br>
+            Estado: <span th:text="${military.address.zone.state_name}"></span><br>
+            CEP:<span th:text="${military.address.postal_code}"></span><br>
+            Telefones para contato (1): <span th:text="${military.phone1}"></span><br>
+            Telefones para contato (2): <span th:text="${military.phone2}"></span><br>
+            Email: <span th:text="${military.email}"></span><br></p>
+                
+                
+                <hr>
+          </div>
+        </div>
+   </div>     
+</html>

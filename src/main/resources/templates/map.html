@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="corpo">
+    <head>
+        <style>
+            #map {
+                height: 600px;
+                width: 100%;
+            }
+            #legend {
+                font-family: Arial, sans-serif;
+                background: #fff;
+                padding: 10px;
+                margin: 10px;
+                border: 3px solid #000;
+            }
+            #legend h3 {
+                margin-top: 0;
+            }
+            #legend img {
+                vertical-align: middle;
+            }
+       </style>
+    </head>
+    <body>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;font-size: 14px;"><strong>Mapeamento de Unidades</strong></a> </li> 
+        &nbsp;<a href="" data-target="#modal-basico" data-toggle="modal"> <i style="vertical-align:middle" class="fa fa-fw fa-info-circle"></i></a>
+    </ol>
+      
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle"  style="color:blue"></i>  Info</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body"  style="text-align: justify">A visualização inicial do mapa apresenta sua unidade, as unidades e destacamentos subordinados e operações. 
+            Para restringir os elementos exibidos no mapa, é possível aplicar os filtros de operações por período, por status e/ou por unidade. Unidades militares são representadas por seu distintivo. Destacamentos e suas respectivas operações são graficamente indicados conforme a lista abaixo:<br> 
+            <br>
+            <!--<input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showPELs}" th:checked="true" />-->
+            <img style="width: 25px; height: 25px;" th:src="@{/images/icons/ploc1.png}">  -  Pelotão/Destacamento<br>      
+
+            <!--<input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showPlannedOA}" th:checked="true" />-->        
+            <img style="width: 25px; height: 25px;" th:src="@{/images/icons/oa1.png}">  -  Operações em planejamento<br>      
+
+            <!--<input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showDoingOA}" th:checked="true" />-->        
+            <img style="width: 25px; height: 25px;" th:src="@{/images/icons/oa2.png}">  -  Operações em andamento<br>      
+
+            <!--<input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showDoneOA}" th:checked="true" />-->        
+            <img style="width: 25px; height: 25px;" th:src="@{/images/icons/oa3.png}">  -  Operações realizadas<br> 
+          </div>
+<!--          <div class="modal-footer"> <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>             
+            </div>-->
+      </div>
+   </div>
+</div> 
+        
+        
+        <hr>
+        <form class="navbar-form navbar-left" th:action="@{/mapControl/filterMap}" method="get">
+                 
+            <div class="row"> 
+                <div class="col-4">
+                    <div class="form-group">
+                        <label th:for="currentMUss"><strong>Opções de exibição</strong><br><small>(selecione os elementos que devem aparecer no mapa)</small></label><br>
+                            <!--<input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showMUs}" th:checked="true" />Unidades militares <br>-->
+                            <input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showPlannedOA}" th:checked="true" />Op. em Planejamento <br>
+                            <input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showDoingOA}" th:checked="true" />Op. em Andamento <br>
+                            <input type="checkbox" class="align-middle" id="showMUs" th:field="*{filterMap.showDoneOA}" th:checked="true" />Op. Concluída 
+                    </div>
+                </div>
+                <div class="col-4">
+                        <label th:for="currentMUss"><strong>Pelotão/Esquadrão</strong><br><small>(selecione para exibir as operações de um único pelotão/esquadrão)</small></label>
+                        <select required th:field="*{filterMap.militaryUnit.id}" class="custom-select" id="militaryUnity" name="educationDate[]">
+                            <option th:value="-1" text="Toda(s)"></option>
+                            <option th:each="currentMUss : ${units}" th:value="${currentMUss.id}" th:text="${currentMUss.MU_name}"></option>       
+                        </select>
+                </div></strong>
+                <div class="col-4">
+                    <label th:for="currentMUss"><strong>Período</strong><br><small>(selecione um período para localizar operações)</small></label>
+                    <br>
+                        <label th:for="filterMap.start_date">De:  </label>
+                        <input type="date" size="16" class="form-group" id="start_date" th:field="*{filterMap.start_date}"/>
+                        <span th:if="${#fields.hasErrors('filterMap.start_date')}" th:errors="*{filterMap.start_date}" class="label label-danger"></span>             
+<!--                        <input type="time" size="6" class="form-group" id="start_time" th:field="*{filterMap.start_time}"/>
+                        <span th:if="${#fields.hasErrors('filterMap.start_time')}" th:errors="*{filterMap.start_time}" class="label label-danger"></span>             -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label th:for="filterMap.finish_date"> à </label>
+                        <input type="date" size="16" class="form-group" id="finish_date" th:field="*{filterMap.finish_date}"/>
+                        <span th:if="${#fields.hasErrors('filterMap.finish_date')}" th:errors="*{filterMap.finish_date}" class="label label-danger"></span>             
+<!--                        <input type="time" size="6" class="form-group" id="real_finish_time" th:field="*{filterMap.finish_time}"/>
+                        <span th:if="${#fields.hasErrors('filterMap.finish_time')}" th:errors="*{filterMap.finish_time}" class="label label-danger"></span>             -->
+                </div>
+            </div>
+            <br>
+                <div class="card mb-3">
+                    <button type="submit" class="btn btn-secondary btn-sm">Aplicar opções de filtragem no mapa</button> 
+                                    <!--TODO: incluir msgs de erro-->                     
+                </div>    
+
+                                    
+        </form>         
+        
+         
+            <hr>
+    <div id="map"></div>
+    <script type="text/javascript" th:inline="javascript">
+    
+    
+    function initMap() {
+        var COOP = {lat:-20.4619961, lng: -54.6433563};
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: COOP
+    });
+  
+    var iconBase = 'GPEFCMO/images/icons/';
+        var icons = {
+           // comando: {
+           // name: 'CMO',
+            //icon: iconBase+'img_cmo.png'//,
+            //scaledSize: new google.maps.Size(40, 50)//, // scaled size
+        //origin: new google.maps.Point(0,0), // origin
+        //anchor: new google.maps.Point(0, 0) // anchor
+
+            //},
+            ucs: {
+            name: 'Unidade de controle',
+            icon: '/images/icons/ploc1.png',
+            scaledSize: new google.maps.Size(25, 25)
+            },//https://www.iconfinder.com/icons/1886116/aim_archery_focus_goal_objective_success_target_icon#size=256
+            pel: {
+            name: 'Pelotão',
+            icon: '/images/icons/ploc2.png',
+            scaledSize: new google.maps.Size(25, 25)
+            },
+            pef: {
+            name: 'PEF',
+            url: '/GPEFCMO/images/icons/ploc1.png',
+            scaledSize: new google.maps.Size(25, 25)
+            }
+        };
+
+  //Plotagem de operações em fase de planejamento
+  
+  /*<![CDATA[*/
+    //PLOTA OS PONTOS DE OPERAÇÕES NO MAPA
+    //var OAP = []; auxiliar para setar posição
+    var contentStringOA = [];
+    let infowindowsOA = [];
+    var OAmarkers = [];
+    var theList = /*[[${operations}]]*/ 
+    for (i = 0; i < theList.length; i++) {
+        console.log(theList[i].name);
+        
+        //Texto da operação
+        contentStringOA[i] = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">'+theList[i].name+'</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b>'+theList[i].main_goal+'</b>' +
+        //'<p><b>Pelotão:'+theList[i].military_unit.name+'</b>' +
+        '<p> <a href="/GPEFCMO/mapControl/goToOAInfo/'+theList[i].id+'">'+
+      //      var div = document.createElement('div');
+//      div.innerHTML = '<img th:src="@{' + icon + '}"> ' + name + '<br>';
+        '+Info</p>'+
+        '</div>'+
+        '</div>';
+
+        infowindowsOA[i]=new google.maps.InfoWindow({content: contentStringOA[i]});
+        //OAP[i] = {lat:theList[i].latitude, lng:theList[i].longitude};
+        console.log("thelist Lat ["+theList[i].latitude+"] Long - ["+theList[i].longitude+"]");
+        //console.log("OAP Lat ["+OAP[i].latitude+"] Long - ["+OAP[i].longitude+"]");
+        var test;
+        //muda a cor do ícone de acordo com o status da operação
+        if(theList[i].status.localeCompare("PLAN") === 0){
+            test= '/GPEFCMO/images/icons/oa1.png';
+        }else if(theList[i].status.localeCompare("DOING")=== 0){
+            test= '/GPEFCMO/images/icons/oa2.png';
+        }else if(theList[i].status.localeCompare("DONE")=== 0){
+            test= '/GPEFCMO/images/icons/oa3.png';
+        }else{
+            test= '/GPEFCMO/images/icons/oaB.png';
+
+        }
+        
+        var OAimage = {
+            scaledSize: new google.maps.Size(28, 28),
+            url: test           
+        };
+        //Adiciona o marcador
+        var OAmarker = new google.maps.Marker({
+            position: {lat:theList[i].latitude, lng:theList[i].longitude},//seta posição
+            //label: labels[labelIndex++ % labels.length],
+            map: map,//Objeto mapa
+            title:theList[i].name,//string que será exibida quando passar o mouse no marker
+            icon: OAimage
+            //url:"/GPEFCMO/operationalActivityControl/moreInfo/"+theList[i].id
+      
+        });
+        
+        console.log("Add novo marcador: "+ OAmarker.position);
+        //infowindowsOA[i] = infowindowOA;
+        OAmarkers[i] = OAmarker;
+        console.log("Marker op ["+OAmarkers[i].title+"] infoWindow - ["+infowindowsOA[i].content+"]");
+        
+    }
+    //Adiciona listeners para os marcadores do vetor de operações
+    for (i = 0; i < OAmarkers.length; i++) {
+        OAmarkers[i].addListener('click', function() {
+            console.log("rodando... "+OAmarkers[i].title);
+            var infoWindow = new google.maps.InfoWindow({content: contentStringOA[i]});
+            infowindowsOA[i].open(map, OAmarkers[i]);
+        
+        });
+        
+    }
+
+    /*]]>*/
+  //Texto do CCOp
+  var contentStringCCOp = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">CCOp</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Coordenação de Operações do Comando Militar do Oeste (CCOp CMO),'+
+      ' \n\</b>, também chamado de <b>CCOp</b>, é' +
+      '\n comandado pelo General de Brigada Carlos Henrique Teche.'+
+      '<p> <a href="/GPEFCMO/mapControl/goToMUInfo/COOp">'+
+      //      var div = document.createElement('div');
+//      div.innerHTML = '<img th:src="@{' + icon + '}"> ' + name + '<br>';
+      '+Info</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindowCCOp = new google.maps.InfoWindow({
+    content: contentStringCCOp
+  });
+  
+        //marker do COOp
+        var marker = new google.maps.Marker({
+        position: COOP,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"Comando de Operações COOp/CMO",//string que será exibida quando passar o mouse no marker
+        icon: '/GPEFCMO/images/icons/img_cmo.png',//https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png//,
+         
+        });
+        marker.addListener('click', function() {
+            console.log("rodando... ");
+            infowindowCCOp.open(map, marker);
+        
+        });
+    
+
+
+    //  var link = /*[[@{/mapControl/goToMU/{MU_initials}(MU_initials='CCOp')}]]*/''; 
+ var contentStringBDA4 = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="BDA4" class="firstHeading">4ª Bda C Mec</h1>'+
+      '<div id="bodyContent">'+
+     
+      '<p> '+
+      'Teste de chamada.</p>'+
+      '<p> <a href="/GPEFCMO/mapControl/goToMU/COOp">'+
+      'Site do CMO.</p>'+
+      //      var div = document.createElement('div');
+//      div.innerHTML = '<img th:src="@{' + icon + '}"> ' + name + '<br>';
+      '</div>'+
+      '</div>';
+
+  var infowindowBDA4 = new google.maps.InfoWindow({
+    content: contentStringBDA4
+  });
+       //Marker da 4ª BDA C Mec
+        var BDA4 = {lat:-22.195674, lng: -54.905257};
+        var bdacmz4 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/4bdacmz.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: BDA4,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"4ª Bda C Mec",//string que será exibida quando passar o mouse no marker
+        icon: bdacmz4//,
+      
+        }); 
+       
+
+  
+  
+  
+  
+        //nova posição
+        var BDA13 = {lat:-15.560895, lng: -56.063803};
+        var bdaimz13 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/13bdaimz.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: BDA13,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"13ª Bda Inf Mtz",//string que será exibida quando passar o mouse no marker
+        icon: bdaimz13//,
+      
+        });
+        //nova posição
+        var BDA18 = {lat:-19.000321, lng: -57.660673};
+        var bdaifron18 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/18bdaifron.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: BDA18,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"18ª Bda Inf Fron",//string que será exibida quando passar o mouse no marker
+        icon: bdaifron18//,
+      
+        }); 
+         
+        //nova posição
+        var RCMec17 = {lat:-23.134027, lng: -55.209242};
+        var rcmec17 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/17rcmec.png'//,
+        }
+        var marker = new google.maps.Marker({
+        position: RCMec17,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"17º R C Mec",//string que será exibida quando passar o mouse no marker
+        size: new google.maps.Size(25, 25),
+        icon: rcmec17//,
+      
+        }); 
+        //nova posição
+        var RCMec10 = {lat:-22.104922, lng: -56.536840};
+        var rcmec10 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/10rcmec.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: RCMec10,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"10º R C Mec",//string que será exibida quando passar o mouse no marker
+        icon: rcmec10//,
+      
+        });
+        //nova posição
+        var BFron2 = {lat:-16.072291, lng: -57.692467};
+        var bfron2 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/2bfron.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: BFron2,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"2º B Fron",//string que será exibida quando passar o mouse no marker
+        icon: bfron2//,      
+        });
+        //nova posição
+        var CIAFron2 = {lat:-21.7041252, lng: -57.8926521};
+        var ciafron2 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/2ciafron.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: CIAFron2,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"2º CIA Fron",//string que será exibida quando passar o mouse no marker
+        icon: ciafron2//,
+      
+        });
+        //nova posição
+        var BFron17 = {lat:-18.997137, lng: -57.639748};
+        var bfron17 = {
+            scaledSize: new google.maps.Size(25, 29),
+            url: '/GPEFCMO/images/icons/17bfron.png'//,
+        };
+        var marker = new google.maps.Marker({
+        position: BFron17,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"17º B Fron",//string que será exibida quando passar o mouse no marker
+        icon: bfron17//,
+      
+        }); 
+//       //nova posição
+//        var RCMec317 = {lat:-23.673852, lng: -54.564988};
+//        var marker = new google.maps.Marker({
+//        position: RCMec317,//seta posição
+//        //label: labels[labelIndex++ % labels.length],
+//        map: map,//Objeto mapa
+//        title:"3ª/17º R C Mec",//string que será exibida quando passar o mouse no marker
+//        icon: '/GPEFCMO/images/icons/ploc1.png'//,
+//      
+//        }); 
+        
+        var pefIcon = '/GPEFCMO/images/icons/ploc1.png';
+   //nova posição
+        var pef_guapore = {lat:-13.716811, lng: -60.614425};
+        var marker = new google.maps.Marker({
+        position: pef_guapore,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"Guaporé 4º PEF",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_palmarito = {lat:-15.402921, lng: -60.232907};
+        var marker = new google.maps.Marker({
+        position: pef_palmarito,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"Palmarito 3º PEF",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_fortuna = {lat:-16.271391, lng: -59.493272};
+        var marker = new google.maps.Marker({
+        position: pef_fortuna,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"Fortuna 2º PEF",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_corixa = {lat:-16.396081, lng: -58.339499};
+        var marker = new google.maps.Marker({
+        position: pef_corixa,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"Corixá 1º PEF",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_ptindio = {lat:-17.668266, lng: -57.755635};
+        var marker = new google.maps.Marker({
+        position: pef_ptindio,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"PEF Porto Índio",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_fcoimbra = {lat:-19.916611, lng: -57.789762};
+        var marker = new google.maps.Marker({
+        position: pef_fcoimbra,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"PEF Forte Coimbra",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_bbranco = {lat:-21.099758, lng: -57.844396};
+        var marker = new google.maps.Marker({
+        position: pef_bbranco,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"PEF Barranco Branco",//,//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+   //nova posição
+        var pef_caracol = {lat:-22.004006, lng: -57.040725};
+        var marker = new google.maps.Marker({
+        position: pef_caracol,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"PEF Caracol",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });
+        
+        
+    //nova posição
+        var pel_mundnovo = {lat:-23.957098, lng: -54.294778};
+        var marker = new google.maps.Marker({
+        position: pel_mundnovo,//seta posição
+        //label: labels[labelIndex++ % labels.length],
+        map: map,//Objeto mapa
+        title:"1 Pel (Mundo Novo)",//string que será exibida quando passar o mouse no marker
+        icon: pefIcon
+      
+        });   
+     
+     
+//    var legend = document.getElementById('legend');
+//        var name = 'Unidade de controle',
+//        var icon = 'GPEFCMO/images/icons/ploc1.png',
+//        var div = document.createElement('div');
+//        div.innerHTML = '<img th:src="' + icon + '"> ' + name + '<br>';
+//        legend.appendChild(div);
+        
+//    for (var key in icons) {
+//      var type = icons[key];
+//      var name = type.name;
+//      var icon = type.icon;
+//      var div = document.createElement('div');
+//      div.innerHTML = '<img th:src="@{' + icon + '}"> ' + name + '<br>';
+//      legend.appendChild(div);
+//    }
+
+    //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXDUZf4RHIj7ZLR2ldNxIygRVMGiTR9Q&callback=initMap">
+    </script>
+
+    </body>
+    </div>
+</html>

@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="menu">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" >
+            <img style="width: 40px; height: 40px;" alt="logo cmo" th:src="@{/images/COMPASS.png}" />
+
+<h3>&nbsp; <span style="color: #00FCFF;"><a> GPEFCMO <font size="3" style="color: white;"><em>[Usuário: "<span sec:authentication="name"></span> 
+                    <span sec:authorize="hasAnyAuthority('SUPERADMIN')">",  autenticado como SUPERADMINISTRADOR]</span>
+                    <span sec:authorize="hasAnyAuthority('ADMIN')">",  autenticado como  ADMINISTRADOR]</span>
+                    <span sec:authorize="hasAnyAuthority('READ_WRITE')">",  autenticado com perfil de LEITURA e ESCRITA]</span>
+                    <span sec:authorize="hasAnyAuthority('READ_ONLY')">",  logado com perfil de LEITURA]</span></em></font></a><em>
+          </em></span></h3> 
+      <button class="navbar-toggler navbar-toggler-right"
+        type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <!-- Home-->
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Início">
+          <a class="nav-link" th:href="@{/}"><i class="fa fa-fw fa-home"></i><span class="nav-link-text">Início</span> </a> </li> 
+                 
+          <!-- Menu Unidades -->
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Unidades">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+            href="#collapseUnidades" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-map-marker"></i>
+            <span class="nav-link-text">Unidades Militares</span> </a>
+            <ul class="sidenav-second-level collapse" id="collapseUnidades">
+              <!--<li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE','READ_ONLY')"> <a th:href="@{/mapControl/mapping}">Mapeamento</a> </li>-->
+              <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE','READ_ONLY')"> <a th:href="@{/militaryUnitControl/listPEFs}">PEF/Esqd/Pel C Mec Dst</a> </li>
+              <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE','READ_ONLY')"> <a th:href="@{/militaryUnitControl/listOUs}">Demais Unidades</a> </li>
+              <!--<li sec:authorize="hasAuthority('SUPERADMIN')"> <a th:href="@{/militaryUnitControl/addMilitaryUnit}">Incluir nova unidade</a> </li>-->
+              <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')"> <a th:href="@{/zoneControl/listAllZones}">Cadastro de Cidades/Municípios</a> </li>
+              <!--<li sec:authorize="hasAuthority('SUPERADMIN')"> <a th:href="@{/zoneControl/registerZone}">Nova Cidade/Município</a> </li>-->
+            </ul>
+          </li>
+         <!-- Menu Usuários -->
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Usuarios">
+         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+              href="#collapseUsuarios" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-group"></i>
+              <span class="nav-link-text">Usuários</span> </a>
+              <ul class="sidenav-second-level collapse" id="collapseUsuarios">
+                <li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')"> <a th:href="@{/userControl/listAllUsers}">Cadastro de Usuários</a> </li>
+                <li> <a th:href="@{/userControl/showPersonalProfile}">Meu Perfil</a> </li>
+                <!--<li sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN')"> <a th:href="@{/userControl/register}">Incluir novo usuário</a> </li>-->
+            </ul>
+          </li>
+         <!-- Menu Relatórios -->
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+              href="#collapseReports" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-bar-chart"></i>
+              <span class="nav-link-text">Relatórios</span> </a>    
+              <ul class="sidenav-second-level collapse" id="collapseReports">
+                <li> <a href="#">Efetivo</a> </li>
+                <li> <a href="#">Infraestrutura</a> </li>
+                <li> <a href="#">Instalações</a> </li>
+                <li> <a href="#">Operações</a> </li>
+                <li> <a href="#">Serviços</a> </li>
+                <li> <a href="#">Suprimentos</a> </li>
+                </ul></li> 
+         <!-- Menu Suporte -->
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Support">
+         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+              href="#collapseSupport" data-parent="#exampleAccordion"> <i class="fa fa-fw fa-support"></i>
+            <span class="nav-link-text">Suporte</span> </a>    
+            <ul class="sidenav-second-level collapse" id="collapseSupport">
+                <li > <a class="nav-link" href="#">Sobre</a> </li>
+                <li > <a class="nav-link" href="#">Manual de utilização</a> </li>
+                <li > <a class="nav-link" href="http://atendimento.badmapcmo.eb.mil.br/dti/">Abrir chamado (GLPI)</a> </li>
+                <!--<li > <a class="nav-link" href="tenbenites@cmo.eb.mil.br">Mapa do site</a> </li>TODO fazer mapa do site-->
+                <li > <a class="nav-link" th:href="'mailto:' + 'tenbenites@cmo.eb.mil.br'">Sugestões (e-mail)</a> </li><!--TODO fazer form de sugestões-->
+             </ul></li> 
+        </ul>
+          
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item text-center"> 
+                <a href="http://intranet.cmo.eb.mil.br/"> <img style="width: 25px; height: 34px;" alt="logo cmo" th:src="@{/images/img_cmo.png}" /></a>
+              &nbsp;&nbsp;
+               <a href="http://intranet.cmo.eb.mil.br/"> <img style="width: 25px; height: 36px;" alt="logo cmo" th:src="@{/images/distintivo_CCOP.png}" /></a>         
+              &nbsp;&nbsp;
+              <a href="http://intranet.badmapcmo.eb.mil.br/">  <img style="width: 25px; height: 36px;" alt="logo cmo" th:src="@{/images/b_adm_ap_cmo.png}" /></a>
+               </li>
+          <li class="nav-item"> <a class="nav-link text-center" id="sidenavToggler">
+            </a> <br>
+          </li>
+        </ul>
+          
+        <ul class="navbar-nav ml-auto">
+           
+          <li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <i class="fa fa-fw fa-sign-out"></i>Sair</a> </li>
+        </ul>
+      </div>
+    </nav> 
+    </div>
+</html>

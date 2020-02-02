@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!--     <br><br>
+     Breadcrumbs
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Edição de informações</strong></a> </li> 
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>
+</ol>-->
+<h5><strong>Controle de efetivo</strong></h5>
+    <div class="container-fluid">    
+    <div class="row">
+<!--    <div class="col-5">
+    <h6>Buscar militar</h6>  
+        <form class="navbar-form navbar-left" role="search" th:action="@{/militaryControl/listMilitaryByName/{id}(id=${militaryUnit.id})}" method="get">
+            <div class="form-group">
+                <input name="name" id="name" type="text" class="form-control" placeholder="Nome/Nome de guerra">                       
+            </div>
+            <button type="submit" class="btn btn-default">Buscar</button>
+        </form>
+    </div>     -->
+   
+    
+  
+        <a class="btn btn-dark btn-sm" th:href="@{/militaryControl/registerMilitaryForMU/{id}(id=${militaryUnit.id})}">Novo Cadastro</a>
+
+    
+    
+       
+    </div>
+    </div><hr>
+    <br>
+    <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'"
+    <div class="panel-heading">
+        <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+    </div>
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Militares do pelotão <small>(Atenção: militares que são usuários do sistema só podem ter o cadastro excluído no menu Usuários.)</small></div>
+          <div class="card-body">
+            <div class="table-responsive">
+<table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Nome de guerra</th>
+                <th>Posto/Graduação</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="military : ${militaryList}">
+                  <td th:text="${military.name}"></td>
+                  <td th:text="${military.war_name}"></td>
+                  <td th:text="${military.post.description}"></td>                                      
+                  <td>            
+                      <a th:if="${military.isUser}==false" class="btn btn-success btn-sm" th:href="@{/militaryControl/preUpdate/{id}(id=${military.id})}">Editar</a>
+                      <a th:if="${military.isUser}==false" class="btn btn-danger btn-sm" th:href="@{/militaryControl/delete/{id}(id=${military.id})}" >Excluir</a>  
+                      <a class="btn btn-info btn-sm" th:href="@{/militaryControl/showSingleProfile/{id}(id=${military.id})}">+Info</a>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+            
+    </div>        
+</html>

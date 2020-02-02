@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="pt-br" 
+      
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:dt="http://github.com/dandelion"
+      >
+<head>
+   
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <title>GPEFCMO</title>
+    <!--<link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"/>-->
+    <link type="text/css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.css}"/>
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap-datetimepicker.min}"/>-->
+    <link type="text/css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/vendor/datatables/jquery.dataTables.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/sb-admin.css}"/>
+</head>
+<!--<body class="fixed-nav sticky-footer bg-dark" id="page-top" style="font-size: 15px;line-height: 1.1;">-->
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div class="menu" th:include="menu">
+        <span>carrega fragmento do menu</span>
+    </div>
+<div class="content-wrapper">
+    <div class="container" th:include="${content} :: corpo">
+        <span>o conteudo principal sera inserido aqui!</span>
+        
+    </div>
+
+    <footer class="footer" th:insert="footer">
+        <span>O rodapé será inserido aqui!</span>
+    </footer>
+    </div>
+   
+</body>
+    
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script> 
+<script type="text/javascript" th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>  
+<script type="text/javascript">
+  $('.tb').DataTable({
+    language: {
+			lengthMenu: "Mostrar _MENU_ registros por página",
+			zeroRecords: "Nenhum Registro Encontrado",
+			info: "Mostrando _PAGE_ de _PAGES_ páginas",
+			infoEmpty: "Nenhum Registro Encontrado",
+			infoFiltered: "(Filtrado de MAX registros totais)",
+			loadingRecords: "Carregando ...",
+			processing: "Processando ...",
+			search: "Pesquisar",
+			paginate:{
+				first: "Primeira",
+				last : "Última",
+				next : "Próxima",
+				previous: "Voltar"
+			}
+		}    
+    });
+  </script>  
+<script type="text/javascript" th:src="@{/vendor/jquery/jquery.min.js}"></script>     
+<script type="text/javascript" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>   
+<script type="text/javascript" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>    
+<!--<script type="text/javascript" th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>-->     
+<script type="text/javascript" th:src="@{/vendor/chart.js/Chart.min.js}"></script>       
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>    
+<script type="text/javascript" th:src="@{/js/sb-admin.min.js}"></script>    
+<!--<script type="text/javascript" th:src="@{/js/sb-admin-datatables.min.js}"></script>-->    
+<script type="text/javascript" th:src="@{/js/sb-admin-charts.min.js}"></script> 
+<script type="text/javascript" th:src="@{/js/dynamicForm.js}"></script>   
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>  
+</html>

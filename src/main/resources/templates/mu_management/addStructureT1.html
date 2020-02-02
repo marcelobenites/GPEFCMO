@@ -1,0 +1,100 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+--> <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${structureT1.id == null} ? #{title.save.structureT1} : #{title.update.structureT1}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${structureT1.id == null} ? @{/structureControl/savestructureT1} : @{/structureControl/updateStructureT1}"  th:object="${structureT1}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{structureType}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <!--<input type="hidden" th:field="*{}" value="Classe I -"/>-->
+            
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome/Número: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+            
+                <div class="col-3">    
+                    <label th:for="locationPoint.latitude">Latitude:</label>
+                    <input th:type="number" class="form-control" id="latitude" th:field="*{locationPoint.latitude}"/>
+                    <span th:if="${#fields.hasErrors('locationPoint.latitude')}" th:errors="*{locationPoint.latitude}" class="label label-danger"></span>
+                </div>
+                <div class="col-3">    
+                    <label th:for="locationPoint.longitude">Longitude:</label>
+                    <input th:type="number" class="form-control" id="latitude" th:field="*{locationPoint.longitude}"/>
+                    <span th:if="${#fields.hasErrors('locationPoint.longitude')}" th:errors="*{locationPoint.longitude}" class="label label-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                
+                
+                 <div class="col">    
+                    <div class="form-group">
+                        <label th:for="PNRKind">Natureza*: </label>
+                        <select required th:field="*{PNRKind}"  id="PNRKind" class="custom-select" >
+                            <option value=""></option>
+                            <option th:each="PNRKind : ${PNRKinds}" th:value="${PNRKind}" th:text="${PNRKind.description}"></option>
+
+                        </select>      
+                    </div>    
+                 </div>
+                 <div class="col">    
+                    <div class="form-group">
+                        <label th:for="PNRType">Tipo*: </label>
+                        <select required th:field="*{PNRType}"  id="PNRType" class="custom-select" >
+                            <option value=""></option>
+                            <option th:each="PNRType : ${PNRTypes}" th:value="${PNRType}" th:text="${PNRType.description}"></option>
+
+                        </select>      
+                    </div>    
+                 </div>
+                 <div class="col">    
+                    <div class="form-group">
+                        <label th:for="PNRCategory">Categoria*: </label>
+                        <select required th:field="*{PNRCategory}"  id="PNRCategory" class="custom-select" >
+                            <option value=""></option>
+                            <option th:each="PNRCategory : ${PNRCategories}" th:value="${PNRCategory}" th:text="${PNRCategory.description}"></option>
+
+                        </select>      
+                    </div>    
+                 </div>
+                 <div class="col">    
+                    <div class="form-group">
+                        <label th:for="occupation_status">Disponibilidade: </label>
+                        <select required th:field="*{occupation_status}"  id="occupation_status" class="custom-select" >
+                            <option value=""></option>
+                            <option th:each="PNRAvailability : ${PNRAvailabilities}" th:value="${PNRAvailability}" th:text="${PNRAvailability.description}"></option>
+
+                        </select>      
+                    </div>    
+                 </div>
+                
+             </div> <br>
+            
+           
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais, Motivo /Desocupação sfc:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> 
+     <i>*Consulte a <a href="http://www.dom.eb.mil.br/images/legislacao/instrucoes/ig_50_01.pdf">portaria Nº340</a>, de 18 de junho de 1998 para mais informações sobre conceituação e classificação de PNRs. </i>
+
+     <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div>
+</div>

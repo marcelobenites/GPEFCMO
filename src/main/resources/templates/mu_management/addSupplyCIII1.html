@@ -1,0 +1,78 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${lpg.id == null} ? #{title.save.supplyItemCIII1} : #{title.update.supplyItemCIII1}"></strong></a> </li> 
+    </ol>
+<div th:if="${lpg.id != null}" class="row">
+    <div class="col">
+        <span th:text="${description}"></span><br>
+        <strong>Última Atualização:</strong><span th:text="${lpg.last_update}"></span><br>
+    </div><hr>
+</div>
+    <div>
+    	<form th:action="${lpg.id == null} ? @{/supplyControl/saveSupplyItemCIII1} : @{/supplyControl/updateSupplyItemCIII1}"  th:object="${lpg}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe III.1 -"/>
+            <input type="hidden" th:field="*{metric_unit}"/>
+            <input type="hidden" th:field="*{last_update}"/>
+            <input type="hidden" th:field="*{name}"/>
+            
+            
+            <div class="row">
+                <div class="col">    
+                    <label th:for="content">Capacidade do botijão/cilindro (Kg): </label>
+                    <input th:type="text" class="form-control" id="metric_unit" th:field="*{content}"/>
+                    <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="label label-danger"></span>
+                </div>
+                
+                <div class="col">    
+                    <label th:for="expected_amount">Qtd. Total Prevista (nro de botijões/cilindros): </label>
+                    <input th:type="text" class="form-control" id="expected_amount" th:field="*{expected_amount}"/>
+                    <span th:if="${#fields.hasErrors('expected_amount')}" th:errors="*{expected_amount}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="current_amount">Qtd. Em Uso (nro de botijões/cilindros): </label>
+                    <input th:type="text" class="form-control" id="current_amount" th:field="*{current_amount}"/>
+                    <span th:if="${#fields.hasErrors('current_amount')}" th:errors="*{current_amount}" class="label label-danger"></span>
+                </div>
+                
+                <div class="col">    
+                    <label th:for="deficit">Qtd. a ser Suprido (nro de botijões/cilindros): </label>
+                    <input th:type="text" class="form-control" id="deficit" th:field="*{deficit}"/>
+                    <span th:if="${#fields.hasErrors('deficit')}" th:errors="*{deficit}" class="label label-danger"></span>
+                </div>
+                
+                
+            </div>     
+                
+            
+<!--                <div class="col"> 
+                    TODO veriricar se essa data deve ser gerada automaticamente
+                    <label th:for="last_update">Data de última atualização:</label>
+                    <input type="date" class="form-control" id="last_update" th:field="*{last_update}"/>
+                    <span th:if="${#fields.hasErrors('last_update')}" th:errors="*{last_update}" class="label label-danger"></span>             
+               </div>-->
+                
+                
+             
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

@@ -1,0 +1,123 @@
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${vehicle.id == null} ? #{title.save.supplyItemCIX1} : #{title.update.supplyItemCIX1}"></strong></a> </li> 
+    </ol>
+<div th:if="${vehicle.id != null}" class="row">
+    <div class="col">
+        <span th:text="${description}"></span><br>
+        <strong>Última Atualização:</strong><span th:text="${vehicle.last_update}"></span><br>
+    </div><hr>
+</div>
+    <div>
+    	<form th:action="${vehicle.id == null} ? @{/supplyCIXControl/saveSupplyItemCIX1} : @{/supplyCIXControl/updateSupplyItemCIX1}"  th:object="${vehicle}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <input type="hidden" th:field="*{supply_class}" value="Classe IX.1 -"/>
+            <input type="hidden" th:field="*{metric_unit}" value="Unidades"/>
+            <input type="hidden" th:field="*{last_update}"/>
+            
+            
+            
+            <div class="row">
+                
+                <div class="col">    
+                    <label th:for="name">Modelo: </label>
+                    <input th:type="text" class="form-control" id="model" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="brand">Marca: </label>
+                    <input th:type="text" class="form-control" id="brand" th:field="*{brand}"/>
+                    <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="label label-danger"></span>
+                </div>
+                <div class="col-1">    
+                    <label th:for="year_of_manufacture">Ano: </label>
+                    <input th:type="text" class="form-control" id="year_of_manufacture" th:field="*{year_of_manufacture}"/>
+                    <span th:if="${#fields.hasErrors('year_of_manufacture')}" th:errors="*{year_of_manufacture}" class="label label-danger"></span>
+                </div>
+            </div>
+             <div class="row">
+                  
+            
+              <div class="col">    
+                <label th:for="board">Placa: </label>
+                <input th:type="text" class="form-control" id="board" th:field="*{board}"/>
+                <span th:if="${#fields.hasErrors('board')}" th:errors="*{board}" class="label label-danger"></span>
+            </div>
+            <div class="col">    
+                <label th:for="identification">Identificação EB: </label>
+                <input th:type="text" class="form-control" id="identification" th:field="*{identification}"/>
+                <span th:if="${#fields.hasErrors('identification')}" th:errors="*{identification}" class="label label-danger"></span>
+            </div>
+            <div class="col">
+                        <div class="form-group">
+                            <label th:for="status">Tipo de combustível: </label>
+                                <select th:field="*{fuel}" id="fuel" class="custom-select">
+                                    <option value=""></option>
+                                    <option th:each="fuel : ${CIXfuel}" th:value="${fuel}" th:text="${fuel.description}"></option>
+                                </select>                
+                        </div>        
+                  </div>  
+                  <div class="col">
+                        <div class="form-group">
+                            <label th:for="status">Tipo de uso: </label>
+                                <select th:field="*{purpose}" id="purpose" class="custom-select">
+                                    <option value=""></option>
+                                    <option th:each="purpose : ${CIXtype}" th:value="${purpose}" th:text="${purpose.description}"></option>
+                                </select>                
+                        </div> 
+                  </div>         
+                 
+                 
+          </div>
+          <div class="row">  
+            <div class="col-3">
+                <div class="form-group">
+                    <label th:for="status">Situação: </label>
+                        <select th:field="*{status}" id="status" class="custom-select">
+                            <option value=""></option>
+                            <option th:each="status : ${CIXstatus}" th:value="${status}" th:text="${status.description}"></option>
+                        </select>                
+                </div>        
+            </div>
+          </div>      
+
+            <div class="row"> 
+                <div class="col">
+                    <label th:for="providence">Providência: </label>
+                    <textarea th:type="text" class="form-control" id="providence" th:field="*{providence}"></textarea>
+                    <span th:if="${#fields.hasErrors('providence')}" th:errors="*{providence}" class="label label-danger"></span>
+                </div>
+            </div>
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+        
+        
+        
+        
+            
+        
+        <form method="POST" th:action="@{/vehicleControl/upload}" enctype="multipart/form-data">
+    <input th:type="file" name="file" /><br/><br/>
+    <input th:type="submit" value="send" />
+</form>
+        
+    </div> 
+</div>

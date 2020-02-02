@@ -1,0 +1,74 @@
+
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${svc3.id == null} ? #{title.save.service3} : #{title.update.service3}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${svc3.id == null} ? @{/serviceControl/saveService3} : @{/serviceControl/updateService3}"  th:object="${svc3}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{serviceType}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome da concessionária: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col-4">                        
+                    <label th:for="treatment">Tipo de tratamento: </label>
+                    <select th:field="*{gargage_treatmentType}" id="treatment"  class="custom-select">
+                        <option value=""></option>
+                        <option th:each="treatment : ${garbageTreatment}" th:value="${treatment}" th:text="${treatment.description}"></option>
+                    </select>
+                </div> 
+                
+             </div> <br>
+                
+          
+            
+            <div class="row">
+                <div class="col">    
+                    <label th:for="fountain_distance">Distância Depósito/Manancial mais próximo(Km): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="fountain_distance" th:field="*{fountain_distance}"/>
+                    <span th:if="${#fields.hasErrors('fountain_distance')}" th:errors="*{fountain_distance}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="served_homes">Quantidade de residências atendidas: </label><br><br>
+                    <input th:type="number" step="1" min="0" class="form-control" id="served_homes" th:field="*{served_homes}"/>
+                    <span th:if="${#fields.hasErrors('served_homes')}" th:errors="*{served_homes}" class="label label-danger"></span>
+                </div>              
+                <div class="col">    
+                    <label th:for="collection_frequency">Frequência de coleta (em vezes por semana): </label><br><br>
+                    <input th:type="number" step="1" min="0" class="form-control" id="collection_frequency" th:field="*{collection_frequency}"/>
+                    <span th:if="${#fields.hasErrors('collection_frequency')}" th:errors="*{collection_frequency}" class="label label-danger"></span>
+                </div>
+             </div>  
+             <div class="row">
+                <div class="col">    
+                    <label th:for="description">Estratégia de retorno ao ambiente e tipo de depósito:</label>
+                    <textarea th:type="text" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+             </div>
+             
+             <div class="row">
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div>
+             
+             
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

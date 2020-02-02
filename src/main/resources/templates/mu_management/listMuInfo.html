@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+        <div class="form-group">
+           
+           <a class="btn btn-dark btn-sm" th:href="@{/muInfoControl/registerMuInfo/{id}(id=${militaryUnit.id})}">Nova informação</a><br>
+              
+          <!--        <div class="col-5">
+            <h5>Buscar em informações complementares</h5>
+            <i><small>(As infomações complementares estão listadas por ordem cronológica de criação.)</small></i>
+             <form class="navbar-form navbar-left" role="search" th:action="@{/muInfoControl/findMUInfoByTitle/{id}(id=${militaryUnit.id})}" method="get">
+                        <div class="form-group">
+                            <input name="title" type="text" class="form-control" placeholder="Buscar por título">
+                        </div>
+                        <button type="submit" class="btn btn-default">Buscar</button>
+             </form>
+        </div>            -->
+        </div>      
+        <div th:if="!${#strings.isEmpty(message)}" class="row">
+          <div class="col-5">   
+            <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+                <div class="alert alert-danger">
+                    <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+                </div>
+            </div>
+            </div>
+        </div>     
+        <div class="card mb-3">
+            <div class="card-header"> <i class="fa fa-table"></i> Informações complementares <br><i><small>(As infomações complementares estão listadas por ordem cronológica de criação.)</small></i></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table  class="table table-hover tb">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Data de criação/atualização</th>
+                        <th>Responsável pela última edição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="muInfo : ${information}">
+                        <td th:text="${muInfo.title}"></td>
+                        <td th:text="${muInfo.creationDate}"></td>                                      
+                        <td th:text="${muInfo.military_author.post.abbreviation} +' '+ ${muInfo.military_author.war_name}"></td>                                            
+                        <td>            
+                            <a class="btn btn-info btn-sm" th:href="@{/muInfoControl/preUpdateMUInfo/{id}(id=${muInfo.id})}">Editar</a>
+                            <a sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-danger btn-sm" th:href="@{/muInfoControl/delete/{id}(id=${muInfo.id})}" >Excluir</a>  
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+                </div>
+            </div>
+        </div>    
+    </div>        
+</html>
+<!--Modal de Info-->
+<div class="modal fade" id="imodal" tabindex="-1" role="dialog" aria-labelledby="intraModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="intraModalLabel"><i class="fa fa-fw fa-info-circle"></i>  Info</h5>
+          <button class="close" type="button" data-dismiss="modal2" aria-label="Close">
+          <span aria-hidden="true">×</span> </button> </div>
+          <div class="modal-body"> 
+                Editar informações de cadastro da unidade militar.           
+          </div>
+          <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                data-dismiss="modal2">Fechar</button>             
+          </div>
+      </div>
+   </div>
+</div>  

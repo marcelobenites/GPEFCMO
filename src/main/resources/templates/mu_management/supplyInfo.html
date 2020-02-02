@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+<!--        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="'Item de Suprimento '+${supplyClass.description}+' resumo de informações'" ></strong></a> </li> 
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>
+        </ol>      
+    
+         <br>-->
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-file-text-o"></i> <strong th:text="'Item de Suprimento '+${supplyClass.description}+' - resumo de informações'" ></strong> </div>
+          <div class="card-body">
+            <div class="table-responsive">
+<a th:if="${supplyClass.description}=='Classe I - Material de Subsistência'">
+    Nome:<span th:text="${supplyItem.name}"></span><br>
+    Descrição: <span th:text="${supplyItem.description}"></span><br>
+    Quantidade esperada: <span th:text="${supplyItem.expected_amount}"></span><br>
+    Quantidade real: <span th:text="${supplyItem.current_amount}"></span><br>
+    Supre até: <span th:text="${supplyItem.up_to}"></span><br>
+</a>
+<a th:if="${supplyClass.description}=='Classe II - Material de Intendência'">
+    Nome:<span th:text="${supplyItem.name}"></span><br>
+    Descrição: <span th:text="${supplyItem.description}"></span><br>
+    Disponibilidade: <span th:text="${supplyItem.availability} ? 'disponível' : 'indisponível'"></span><br>    
+</a>
+<a th:if="${supplyClass.description}=='Classe III.1 - Gás GLP'">
+    Capacidade do botijão/cilindro (Kg):<span th:text="${supplyItem.content}"></span><br>
+    Qtd. Total Prevista (nro de botijões/cilindros): <span th:text="${supplyItem.expected_amount}"></span><br>
+    Qtd. em Uso (nro de botijões/cilindros): <span th:text="${supplyItem.current_amount}"></span><br>
+    Qtd. a ser Suprido (nro de botijões/cilindros): <span th:text="${supplyItem.deficit}"></span><br>
+</a>
+<a th:if="${supplyClass.description}=='Classe III.2 - Gasolina'">
+    Qtd. Total Prevista (mil litros):<span th:text="${supplyItem.expected_amount}"></span><br>
+    Qtd. em Uso (mil litros): <span th:text="${supplyItem.current_amount}"></span><br>
+    Qtd. a ser Suprido (mil litros):<span th:text="${supplyItem.deficit}"></span><br>
+    Local de Armazenamento:<span th:text="${supplyItem.storage.name}"></span><br>
+    Tipo de armazenagem:<span th:text="${supplyItem.storage_type}"></span><br>
+    Situação:<span th:text="${supplyItem.situation}"></span><br>    
+</a>
+<a th:if="${supplyClass.description}=='Classe III.3 - Diesel'">
+    Qtd. Total Prevista (mil litros):<span th:text="${supplyItem.expected_amount}"></span><br>
+    Qtd. em Uso (mil litros): <span th:text="${supplyItem.current_amount}"></span><br>
+    Qtd. a ser Suprido (mil litros):<span th:text="${supplyItem.deficit}"></span><br>
+    Local de Armazenamento:<span th:text="${supplyItem.storage.name}"></span><br>
+    Tipo de armazenagem:<span th:text="${supplyItem.storage_type}"></span><br>
+    Situação:<span th:text="${supplyItem.situation}"></span><br> 
+</a>
+<a th:if="${supplyClass.description}=='Classe V.1 - Munição'">
+    Modelo: <span th:text="${supplyItem.name}"></span><br>
+    Tipo: <span th:text="${supplyItem.description}"></span><br>
+    Fabricante: <span th:text="${supplyItem.manufacturer}"></span><br>
+    Quantidade prevista: <span th:text="${supplyItem.expected_amount}"></span><br>
+    Quantidade existente: <span th:text="${supplyItem.current_amount}"></span><br>
+    Supre até: <span th:text="${supplyItem.up_to}"></span><br>
+    Armazenado na reserva:<span th:text="${supplyItem.armory.name}"></span><br>  
+</a>
+<a th:if="${supplyClass.description}=='Classe V.2 - Armamento'">
+    Modelo: <span th:text="${supplyItem.name}"></span><br>
+    Tipo: <span th:text="${supplyItem.description}"></span><br>
+    Fabricante: <span th:text="${supplyItem.manufacturer}"></span><br>
+    Nº de identificação: <span th:text="${supplyItem.serial}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>
+    Situação: <span th:text="${supplyItem.status.description}"></span><br> 
+    Quantidade: <span th:text="${supplyItem.amount}"></span><br> 
+</a>
+<a th:if="${supplyClass.description}=='Classe VI - Material de Engenharia e de Cartografia'">
+    Nome: <span th:text="${supplyItem.name}"></span><br>  
+    Número/Série: <span th:text="${supplyItem.serial}"></span><br>  
+    Fabricante: <span th:text="${supplyItem.manufacturer}"></span><br>
+    Tipo/Modelo: <span th:text="${supplyItem.description}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>        
+</a>
+<a th:if="${supplyClass.description}=='Classe VI.1 - Gerador'">
+    Tipo: <span th:text="${supplyItem.description}"></span><br>
+    Fabricante: <span th:text="${supplyItem.manufacturer}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>
+    Modelo: <span th:text="${supplyItem.name}"></span><br>  
+    Tipo de combustível: <span th:text="${supplyItem.fuel}"></span><br>        
+    Potência útil (KVA): <span th:text="${supplyItem.power}"></span><br>
+    Situação: <span th:text="${supplyItem.situation}"></span><br>     
+    Motivo: <span th:text="${supplyItem.reason}"></span><br>     
+    Providência: <span th:text="${supplyItem.response_action}"></span><br>     
+</a>
+<a th:if="${supplyClass.description}=='Classe VI.2 - GPS'">
+    Fabricante: <span th:text="${supplyItem.manufacturer}"></span><br>
+    Modelo: <span th:text="${supplyItem.name}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>
+    Número/Série: <span th:text="${supplyItem.description}"></span><br>
+    Quantidade prevista: <span th:text="${supplyItem.expected_amount}"></span><br>
+    Quantidade existente: <span th:text="${supplyItem.current_amount}"></span><br>
+    Situação: <span th:text="${supplyItem.situation}"></span><br>     
+    Motivo: <span th:text="${supplyItem.reason}"></span><br>     
+    Providência: <span th:text="${supplyItem.response_action}"></span><br> 
+</a>
+<a th:if="${supplyClass.description}=='Classe IX.1 - Viatura'">
+    Modelo:<span th:text="${supplyItem.name}"></span><br>
+    Placa: <span th:text="${supplyItem.board}"></span><br>    
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>    
+    Tipo de combustível: <span th:text="${supplyItem.fuel}"></span><br>    
+    Situação: <span th:text="${supplyItem.status.description}"></span><br>    
+</a>
+<a th:if="${supplyClass.description}=='Classe IX.2 - Embarcação'">
+    Modelo:<span th:text="${supplyItem.name}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>  
+    Capacidade de carga (Kg): <span th:text="${supplyItem.capacity}"></span><br>    
+    Capacidade de passageiros: <span th:text="${supplyItem.amount_of_passangers}"></span><br>    
+    Situação: <span th:text="${supplyItem.status.description}"></span><br>    
+</a>
+<a th:if="${supplyClass.description}=='Classe IX.3 - Motor de Popa'">
+    Modelo:<span th:text="${supplyItem.name}"></span><br>
+    Ano de fabricação: <span th:text="${supplyItem.year_of_manufacture}"></span><br>  
+    Consumo (Litros/Hora): <span th:text="${supplyItem.consumption}"></span><br>    
+    Potência (HP): <span th:text="${supplyItem.power}"></span><br>    
+    Óleo 2T (proporção 2T/Gás): <span th:text="${supplyItem.twoT_oil}"></span><br>    
+    Situação: <span th:text="${supplyItem.status.description}"></span><br>    
+</a>
+
+<!--Descrição: <span th:text="${supplyItem.description}"></span><br>-->
+Outra informação: <span th:text="${supplyItem.extra_observation}"></span><br>
+Última atualização: <span th:text="${supplyItem.last_update}"></span><br>
+Responsável pela última atualização: <span th:text="${supplyItem.mil_modifier.post.abbreviation} +' '+ ${supplyItem.mil_modifier.war_name}"></span><br>
+            </div>
+          </div> 
+        </div>
+    <div>
+                              <a class="btn btn-dark" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${supplyItem.mu_owner.id},supplyClass=${supplyClass})}"  >Voltar</a>
+        </div>        
+    </div>  
+     
+</html>

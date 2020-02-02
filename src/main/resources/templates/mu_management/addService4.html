@@ -1,0 +1,90 @@
+
+<div class="container" th:fragment="subCorpo">
+    
+    
+<!--    TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)
+-->    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="${svc4.id == null} ? #{title.save.service4} : #{title.update.service4}"></strong></a> </li> 
+    </ol>
+    <div>
+    	<form th:action="${svc4.id == null} ? @{/serviceControl/saveService4} : @{/serviceControl/updateService4}"  th:object="${svc4}" method="post" th:accept-charset="ISO-8859-1">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{serviceType}"/>
+            <input type="hidden" th:field="*{mu_owner.id}" value="${militaryUnit.id}"/>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="name">Nome da concessionária: </label>
+                    <input required th:type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="coverage">Cobertura: </label>
+                    <input required th:type="text" class="form-control" id="coverage" th:field="*{coverage}"/>
+                    <span th:if="${#fields.hasErrors('coverage')}" th:errors="*{coverage}" class="label label-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">    
+                    <label th:for="transformer_capacity">Cap. do transf. (VA): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="transformer_capacity" th:field="*{transformer_capacity}"/>
+                    <span th:if="${#fields.hasErrors('transformer_capacity')}" th:errors="*{transformer_capacity}" class="label label-danger"></span>
+                </div>  
+                <div class="col">    
+                    <label th:for="average_consumption">Consumo médio (Kw/h): </label>
+                    <input th:type="number" step="0.01" min="0" class="form-control" id="average_consumption" th:field="*{average_consumption}"/>
+                    <span th:if="${#fields.hasErrors('average_consumption')}" th:errors="*{average_consumption}" class="label label-danger"></span>
+                </div>  
+                <div class="col">    
+                    <label th:for="average_consumption">Tempo de utilização (h): </label>
+                    <input th:type="number" step="1" min="0" class="form-control" id="usage_time" th:field="*{usage_time}"/>
+                    <span th:if="${#fields.hasErrors('usage_time')}" th:errors="*{usage_time}" class="label label-danger"></span>
+                </div>  
+                <div class="col">    
+                    <label th:for="average_consumption">Número de fases: </label>
+                    <input th:type="number" step="1" min="0" class="form-control" id="phases" th:field="*{phases}"/>
+                    <span th:if="${#fields.hasErrors('phases')}" th:errors="*{phases}" class="label label-danger"></span>
+                </div>  
+            
+             
+                <div class="col">                        
+                    <label th:for="tension">Tensão: </label>
+                    <select th:field="*{tension}" id="tension"  class="custom-select">
+                        <option value=""></option>
+                        <option th:each="tension : ${electricTension}" th:value="${tension}" th:text="${tension.description}"></option>
+                    </select>
+                </div> 
+    
+   
+   
+                
+            </div>     
+            
+             <div class="row">
+               
+                <div class="col">    
+                    <label th:for="description">Situação:</label>
+                    <textarea th:type="text" class="form-control" id="description" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="label label-danger"></span>
+                </div>
+                
+             </div> <br>
+                
+          
+            
+            <div class="row">
+               
+                <div class="col">    
+                    <label th:for="extra_observation">Observações adicionais:</label>
+                    <textarea  th:type="text" class="form-control" id="extra_observation" th:field="*{extra_observation}"></textarea>
+                    <span th:if="${#fields.hasErrors('extra_observation')}" th:errors="*{extra_observation}" class="label label-danger"></span>
+                </div>
+                
+            </div> 
+            
+     <br> <hr>    
+             <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Confirmar</button>
+             </div>        
+        </form>
+    </div> 
+</div>

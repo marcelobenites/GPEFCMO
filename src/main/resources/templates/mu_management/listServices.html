@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="subCorpo">
+<!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong th:text="'Infraestrutura/Serviço - '+${serviceType.description}" ></strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+         <div>
+                  
+            <a class="btn btn-dark btn-sm" th:href="@{/serviceControl/registerService/{id}/{serviceType} (id=${militaryUnit.id},serviceType=${serviceType})}" th:object="${serviceType}" >Incluir novo item</a>
+        </div>
+<br>
+
+<div th:if="!${#strings.isEmpty(message)}" class="row">
+            <div class="col-4">   
+            <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+        <div class="alert alert-danger">
+            <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+            </div></div>
+            </div>
+</div>  
+         <br><hr>
+<div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Relação de itens</div>
+          <div class="card-body">
+            <div class="table-responsive">
+<table class="table table-hover tb">
+            <thead>
+            <tr>
+                <th>Infraestrutura/Serviço</th>
+                <th>Última atualização</th>
+            </tr>
+            </thead>
+            <tbody>
+                 <tr th:each="si : ${serviceItems}">
+                    <td th:text="${si.name}"></td>                                    
+                    <td th:text="${si.last_update}"></td>                                    
+                    <td>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-secondary btn-sm"  th:href="@{/serviceControl/preUpdate/{id}/{serviceType}(id=${si.id},serviceType=${si.serviceType})}" >Editar</a>
+                        <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-danger btn-sm"  th:href="@{/serviceControl/deleteService/{id}/{serviceType}(id=${si.id},serviceType=${si.serviceType})}" >Excluir</a>                      	
+                        <a class="btn btn-info btn-sm" th:href="@{/serviceControl/moreInfo/{id}/{serviceType}(id=${si.id},serviceType=${si.serviceType})}">+Info</a>    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+          </div> 
+        </div>
+            
+    </div>        
+</html>

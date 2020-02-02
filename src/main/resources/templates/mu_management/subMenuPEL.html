@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="subMenu" th:fragment="subMenu">
+    <div id="tooplate_menu" class="ddsmoothmenu" style="font-size: 9px">
+            <!-- Brand/logo -->
+  <!--<img src="/images/icons/Ploc.png" alt="pelotões" style="width:35px;">-->
+          <ul>
+              <li><a href="#">Informações</a>
+                  <ul>
+                      <li><a style="color: black;" th:href="@{/pefEsqdPelControl/navigateMU/{id}(id=${militaryUnit.id})}">Informações Gerais</a></li>
+                      <li><a style="color: black;" th:href="@{/pefEsqdPelControl/listStaffInfo/{id}(id=${militaryUnit.id})}">Efetivos</a></li>
+                      <li><a style="color: black;" th:href="@{/pefEsqdPelControl/listPelZonesInfo/{id}(id=${militaryUnit.id})}">Municípios de Área</a></li>
+                  </ul>
+              </li>
+              <li><a>|</a></li>
+              <li><a href="#">Logística</a>
+<!--                  //QUESTION_FOR_CLIENT: fechar qual a ordenação e organização dos submenus e seus itens considerando a melhor opção de granularidade para os formulários??
+                  // - Unir Agua+Saneamento+Coleta de lixo??
+                  // - Marcar no documento de tabelas quais tabelas terão vários itens e quais terão uma única linha??-->
+                  <ul>
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX2')}">Embarcações</a></li>
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII1')}">Gás de cozinha</a></li>
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII2')}">Gasolina</a></li>
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSI')}">Material de subsistência</a></li><!--Material de Subsistência-->
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX3')}">Motores de popa</a></li>
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIII3')}">Óleo diesel</a></li>   
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSIX1')}">Viaturas</a></li>        
+                    <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSX')}">Outros</a></li><!--Materiais não incluídos nas demais classes-->                                                     
+                  </ul>
+              </li>
+              <li><a>|</a></li>
+              <li><a style="color: black;" href="#">Infraestrutura & Serviços</a>
+                    <ul>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC2')}">Fornecimento de Água</a></li>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC2')}">Saneamento</a></li>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC3')}">Coleta de lixo</a></li>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC4')}">Energia elétrica</a></li>
+                        <li><a style="color: black;" href="#">Comunicações</a></li>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC5')}">Convênios</a></li>
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Estocagem')}">Depósitos</a></li>
+<!--                        <ul>
+                             <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVI1')}">Geradores</a></li>                       
+                             <li><a style="color: black;" th:href="@{/supplyControl/listSupplyItems/{id}/{supplyClass} (id=${militaryUnit.id},supplyClass='CLASSVI2')}">GPS</a></li>
+                        </ul>-->
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Estocagem')}">Oficinas</a></li>
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='PNR')}">PNR</a></li>
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='PNR')}">Depósitos</a></li>
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Outras Instalações')}">Outras frações/imóveis</a></li>
+                        <li><a style="color: black;" th:href="@{/structureControl/listStructuralItems/{id}/{structureType} (id=${militaryUnit.id},structureType='Outras Instalações')}">Outras instalações</a></li>
+                        <li><a style="color: black;" th:href="@{/serviceControl/listServices/{id}/{serviceType} (id=${militaryUnit.id},serviceType='SVC1')}">Outros serviços</a></li>
+                    </ul>
+              </li>
+                                              
+          </ul>
+          <br style="clear: left" />
+</div>
+    
+    <!--Modal de Info-->
+    <div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span> </button> </div>
+                <div class="modal-body"> 
+                    Seção de gerenciamento de Unidade Militar do tipo PEF/Esqd/Pel C Mec Dst. 
+                    O submenu acima apresenta as opções de gerenciamento desta unidade disponíveis para o seu perfil de usuário.           
+                </div>
+                <div class="modal-footer"> <button class="btn btn-secondary" type="button"
+                                                   data-dismiss="modal">Fechar</button>             
+                </div>
+            </div>
+        </div>
+    </div>   
+    <div class="mb-0 mt-4"> <i class="fa fa-crosshairs"></i>  <spam class="card-title mb-1" th:text="${militaryUnit.MU_name}"></spam><a href="#" data-target="#modal-basico" data-toggle="modal"> <i style="color: blue" class="fa fa-fw fa-info-circle"></i></a><br></div>
+    <hr>  
+</div>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <title>GPEFCMO</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/tooplate_style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/nivo-slider.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/ddsmoothmenu.css}"/>
+</head>
+<body> 
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>    
+    <script type="text/javascript" src="/static/js/ddsmoothmenu.js"></script>    
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>    
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>    
+    <script type="text/javascript">
+    ddsmoothmenu.init({
+            mainmenuid: "tooplate_menu", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+    });
+    </script>         
+
+
+    <div id="tooplate_header_wrapper">
+    <div id="tooplate_header">
+        <!-- end of tooplate_menu --> </div></div>
+    <div id="tooplate_wrapper">
+      
+     <div id="tooplate_main">
+        <div id="content" class="float_l"> <br />
+            <div class="cleaner h40"></div>
+            <h2><span style="font-weight: bold;"><span style="color: #336666;">Acesso</span></span></h2>
+          
+            <div id="contact_form">
+                <p>O GPEFCMO é um sistema auxiliar no gerenciamento de Pelotões
+                 Especiais de Fronteira subordinados ao <a style="color: #336666;" target="_blank"
+                 title="CMO" href="http://intranet.cmo.eb.mil.br/">Comando Militar
+                 do Oeste (CMO)</a>. Para ter acesso ao sistema são necessários usuário e senha.</p>
+
+
+                <div>
+<!--                    <form id="loginform" class="form-horizontal" role="form" th:action="@{usuario/login}" method="post">                                    
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="login" value="" placeholder="usuario">                                        
+                                    </div>                                
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="senha" placeholder="senha">
+                                    </div>                        
+                            <div style="margin-top:10px" class="form-group">
+                                     Button 
+                                <div class="col-sm-10">
+                                    <a type="submit" value="efetuaLogin" class="btn btn-default">Entrar  </a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 control">
+                                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                            Problemas com login? 
+                                        
+                                        </div>
+                                    </div>
+                                </div>    
+                            </form> -->
+                    <form th:action="@{usuario/login}" method="post">
+                             
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="login" type="text" placeholder="login" class="form-control"> 
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" type="password" placeholder="senha" class="form-control" name="senha" >
+                      </div>
+                      <div class="form-group row">
+                        <br />
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-default"  >Entrar</button>
+                        </div>
+                        <div class="col-md-12 control">
+                            <div style="padding-top:15px; font-size:85%" >
+                                Problemas de acesso? 
+                            <a href="http://sistemas.badmapcmo.eb.mil.br/glpi/">
+                                Abra um chamado.
+                            </a>
+                            </div>
+                        </div>  
+                      </div>
+                        
+                     </form>
+
+                </div>
+            </div>
+         <br />
+        </div>
+        <div id="sidebar" class="float_r">
+          <div style="text-align: center;"><img style="width: 154px; height: 214px;"
+              alt="logo cmo" src="static/images/img_cmo.png" /><br />
+          </div>
+          <div class="cleaner h40"></div>
+          Portal produzido e gerenciado pela Seção de Tecnologia de Informação
+          (STI) da Base Administrativa do Comando Militar do Oeste. 
+          Entre com usuário e senha para acessar o sistema. 
+          <br />
+          <br />
+          <div class="rp_pp">
+            <p>versão 0.3.0-alpha<span style="font-weight: bold;"><span style="color: #336666;"><br/>
+                </span></span></p>
+            <span style="font-weight: bold;"><span style="color: #336666;"> </span><span
+                style="color: #336666;"> </span></span></div>
+          <span style="font-weight: bold;"><span style="color: #336666;"> </span></span>
+<!--          <div class="cleaner h40"><span style="font-weight: bold;"><span style="color: #336666;">Acesso
+                ao FAQ</span></span></div>-->
+        </div>
+        <div class="cleaner"></div>
+      </div>
+          
+      <!-- END of tooplate_main --> </div>
+    <!-- END of tooplate_wrapper -->
+    <!-- END of tooplate_bottom_wrapper -->
+    <div id="tooplate_footer_wrapper">
+        <div id="tooplate_footer"> <span style="color: #bbc3c3;">Copyright © 2018 - DTI B ADM AP/CMO</span></div>
+      <!-- END of tooplate_footer --> </div>
+    <!-- END of tooplate_footer_wrapper -->
+    	</body>
+</html>

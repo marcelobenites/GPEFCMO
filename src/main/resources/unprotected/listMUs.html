@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <div class="container" th:fragment="corpo">
+
+     <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Gerenciamento de Unidades Militares</strong></a> </li> 
+<!--          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+         &nbsp;<a href="" data-target="#modal-basico" data-toggle="modal"><i style="vertical-align:middle" class="fa fa-fw fa-info-circle"></i></a> 
+       </ol>
+<!--Modal de Info-->
+<div class="modal fade" id="modal-basico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span> </button> 
+        </div>
+        <div class="modal-body" style="text-align: justify"> 
+            Abaixo esta listada sua unidade militar e as unidades subordinadas a ela.                  
+            <a sec:authorize="hasAuthority('SUPERADMIN')">Também estão disponíveis para o seu perfil de SUPER-ADMINISTRADOR opções para inclusão, exclusão, edição e gerenciamento de unidades cadastradas.</a>
+            <a sec:authorize="hasAuthority('ADMIN')">Também estão disponíveis para o seu perfil de ADMINISTRADOR opções para o gerenciamento de unidades cadastradas.</a>                           
+            <a sec:authorize="hasAuthority('READ_WRITE')">Também estão disponíveis para o seu perfil de EDITOR opções para o gerenciamento da sua unidade.</a>                           
+            <a sec:authorize="hasAuthority('READ_ONLY')">Também estão disponíveis para o seu perfil de LEITOR opção para explorar informações de unidades cadastradas.</a>                           
+        </div>        
+      </div>
+   </div>
+</div><hr>
+<div class="container-fluid">
+    <div class="row"> 
+        <div class="col-3"   >     
+        <h6><strong>Buscar unidade(s)</strong></h6>    
+        <form class="navbar-form navbar-left" th:action="@{/militaryUnitControl/listMUsByType}" method="get">
+            <div class="form-group">
+                <select style="font-size: 14px" name="MU_type" class="form-control" >
+                    <option value="">Tipo de unidade</option>
+                    <option th:each="MU_type : ${muTypes}" th:value="${MU_type}" th:text="${MU_type.descricao}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-sm">Selecionar</button>
+        </form></div>
+        <div class="col-5"   >   <p style="line-height: 12px"><br></p>
+        <form class="navbar-form navbar-left" role="search" th:action="@{/militaryUnitControl/findByMUName}" method="get">
+            <div class="form-group">
+                <input style="font-size: 14px;width: 370px;" name="MU_name" type="text" class="form-control" placeholder="Nome da unidade">
+            </div>
+            <button type="submit" class="btn btn-secondary btn-sm">Buscar</button>
+        </form>  </div>   <div class="col-3"   >     
+        <div sec:authorize="hasAuthority('SUPERADMIN')">
+            <h6><strong>Incluir Nova Unidade Militar</strong></h6>
+            <a class="btn btn-secondary btn-dark btn-sm" sec:authorize="hasAuthority('SUPERADMIN')" th:href="@{/militaryUnitControl/addMilitaryUnit}">Incluir</a>
+
+        </div> </div> 
+    </div>
+</div>  <hr> 
+<div th:if="!${#strings.isEmpty(message)}" class="row">
+    <div class="col-4">   
+        <div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+            <div class="alert alert-danger">
+                <i class="fa fa-info-circle">&nbsp;</i><span th:text="' '+${#strings.isEmpty(message)} ? ' ' : ${message}"> </span>
+            </div>
+        </div>
+    </div>
+</div><br>
+    <div class="card mb-3">
+    <div class="card-header"> <i class="fa fa-table"></i> Relação de unidades</div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+        <table class="table table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sigla</th>
+                <th>Tipo</th>
+                <th>Cidade</th>
+                <th>Opções</th>
+            </tr>
+            </thead>
+            <tbody >
+                <tr th:each="mu : ${units}">
+                  <td th:text="${mu.MU_name}"></td>
+                  <td th:text="${mu.MU_initials}"></td>                                      
+                  <td th:text="${mu.MU_type.descricao}"></td>                                      
+                  <td th:text="${mu.address.zone.county_name}"></td>                                      
+                  <td style="width: 270px">                    	
+                      <a sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-secondary btn-sm" th:href="@{/militaryUnitControl/preUpdate/{id}(id=${mu.id})}" >Editar</a>                 
+                      <a sec:authorize="hasAnyAuthority('ADMIN','SUPERADMIN','READ_WRITE')" class="btn btn-info btn-sm" th:href="@{/pefEsqdPelControl/navigateMU/{id}(id=${mu.id})}">Gerenciamento</a>
+                      <a sec:authorize="hasAnyAuthority('READ_ONLY')" class="btn btn-info btn-sm" th:href="@{/pefEsqdPelControl/navigateMU/{id}(id=${mu.id})}">Explorar Informações</a>
+                      <a sec:authorize="hasAuthority('SUPERADMIN')" class="btn btn-danger btn-sm" th:href="@{/militaryUnitControl/delete/{id}(id=${mu.id})}" >Excluir</a>  
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>    
+          </div></div></div>
+</html>

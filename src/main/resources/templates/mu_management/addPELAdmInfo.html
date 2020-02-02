@@ -1,0 +1,175 @@
+<div class="container" th:fragment="subCorpo">
+ 
+    
+    <!--TODO fazer validações de entrada (tamanho de campo e formato de entradas nos forms)-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"> <a style="color: #3c7982;"><strong>Cadastro/atualização de informações de PEF/Esqd/Pel C Mec Dst</strong></a> </li> 
+            &nbsp;<a href="" data-target="#modal-basico2" data-toggle="modal"><i style="vertical-align:middle" class="fa fa-fw fa-info-circle"></i></a> 
+        
+<!--        <li class="breadcrumb-item"><small><i>Esta função é exclusiva para administradores.</i></small></li>
+          <li class="breadcrumb-item active">${usuarioRO.militar.nome } ${usuarioRO.militar.sobrenome }</li>-->
+        </ol>
+    <!--Modal de Info-->
+<div class="modal fade" id="modal-basico2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-info-circle" style="color:blue"></i>  Info</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span> </button> 
+        </div>
+        <div class="modal-body" style="text-align: justify"> 
+            Formulário para edição de informações gerais de PEF/Esqd/Pel C Mec Dst. 
+            A inclusão, exclusão e edição de relações de subordinação devem ser 
+            solicitadas por meio de chamado (GLPI) na aba de Suporte do menu principal.           
+        </div>        
+      </div>
+   </div>
+</div>
+
+<!--            <h5>Dados gerais</h5>   -->
+    
+<!--            th:accept-charset="ISO-8859-1"-->
+<br>    <div>
+    	<form th:action="@{/pefEsqdPelControl/updatePELGeneralInfo}"  th:object="${militaryUnit}" method="post" >
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{MU_name}"/>
+            <input type="hidden" th:field="*{MU_initials}"/>
+           <h5>Dados gerais</h5><br>  
+            <div class="row">
+                <div class="col">   
+                    <label th:for="MU_history">Histórico: </label>
+                    <textarea type="text" class="form-control" id="MU_history" th:field="*{MU_history}"></textarea>
+                    <span th:if="${#fields.hasErrors('MU_history')}" th:errors="*{MU_history}" class="label label-danger"></span>
+                </div>    
+            </div> <br>
+            <div class="row">
+                
+                <div class="col">    
+                    <label th:for="commander">Comandante: </label>
+                    <input type="text" class="form-control" id="MU_command" th:field="*{commander}"/>
+                    <span th:if="${#fields.hasErrors('commander')}" th:errors="*{commander}" class="label label-danger"></span>
+                </div>
+                <div class="col">    
+                    <label th:for="S_commander">Subcomandante: </label>
+                    <input type="text" class="form-control" id="MU_command" th:field="*{S_commander}"/>
+                    <span th:if="${#fields.hasErrors('S_commander')}" th:errors="*{S_commander}" class="label label-danger"></span>
+                </div>
+                              
+                  
+            </div> 
+             
+            <hr>
+            <h5>Localização</h5>   <br>
+ 
+            <div class="row">
+                <div class="col">  
+                    <label th:for="street">Rua: </label>
+                    <input type="text" class="form-control" id="nome" th:field="*{address.street}"/>
+                    <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="label label-danger"></span>             
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col">  
+                    <label th:for="complement">Complemento: </label>
+                    <input type="text" class="form-control" id="complement" th:field="*{address.complement}"/>
+                    <span th:if="${#fields.hasErrors('address.complement')}" th:errors="*{address.complement}" class="label label-danger"></span>             
+                </div>
+                <div class="col">  
+                    <label th:for="number">Nro: </label>
+                    <input type="text" class="form-control" id="number" th:field="*{address.number}"/>
+                    <span th:if="${#fields.hasErrors('address.number')}" th:errors="*{address.number}" class="label label-danger"></span>             
+                </div>
+                <div class="col">
+                    <label th:for="postal_code">CEP: </label>
+                    <input type="text" class="form-control" id="postal_code" th:field="*{address.postal_code}"/>
+                    <span th:if="${#fields.hasErrors('address.postal_code')}" th:errors="*{address.postal_code}" class="label label-danger"></span>             
+                </div>
+            </div><!--
+-->           
+            <div class="row">
+                <div class="col-6">  
+                    
+                 <label th:for="currentZones">Município*: </label>
+                      <select required th:field="*{address.zone.id}" class="custom-select" id="zone" name="educationDate[]">
+                        <option value=""></option>
+                        <option th:each="currentZones : ${zones}" th:value="${currentZones.id}" th:text="${currentZones.county_name}+' - '+${currentZones.state_name}"></option>       
+                      </select>
+                
+                
+                </div>  
+                <div class="col">  
+                    <label th:for="latitude">Latitude: </label>
+                    <input type="text" class="form-control" id="latitude" th:field="*{address.latitude}"/>
+                    <span th:if="${#fields.hasErrors('address.latitude')}" th:errors="*{address.latitude}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">Longitude: </label>
+                    <input type="text" class="form-control" id="longitude" th:field="*{address.longitude}"/>
+                    <span th:if="${#fields.hasErrors('address.longitude')}" th:errors="*{address.longitude}" class="label label-danger"></span>             
+                </div>                
+            </div>            
+<hr>
+            <h5>Contato</h5>  <br>  
+            <div class="row">
+                <div class="col">  
+                    <label th:for="latitude">E-mail: </label>
+                    <input type="email" class="form-control" id="email" th:field="*{MU_email}"/>
+                    <span th:if="${#fields.hasErrors('MU_email')}" th:errors="*{MU_email}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">Telefone/Celular/Whatsapp: </label>
+                    <input type="tel" class="form-control" id="MU_tel" th:field="*{MU_tel}"/>
+                    <span th:if="${#fields.hasErrors('MU_tel')}" th:errors="*{MU_tel}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">RITEx: </label>
+                    <input type="tel" class="form-control" id="ritex" th:field="*{ritex}"/>
+                    <span th:if="${#fields.hasErrors('ritex')}" th:errors="*{ritex}" class="label label-danger"></span>             
+                </div>                
+                <div class="col">  
+                    <label th:for="longitude">Frequência de rádio: </label>
+                    <input type="number" class="form-control" id="radio_freq" th:field="*{radio_freq}"/>
+                    <span th:if="${#fields.hasErrors('radio_freq')}" th:errors="*{radio_freq}" class="label label-danger"></span>             
+                </div>                
+            </div>            
+<hr>
+            <h5>Dados gerais</h5><br>  
+                <div class="row"> 
+                    <div class="col">   
+                    <label th:for="latitude">Ambiente Op: </label>
+                    <textarea type="text" class="form-control" id="operational_environment" th:field="*{operational_environment}"></textarea>
+                    <span th:if="${#fields.hasErrors('operational_environment')}" th:errors="*{operational_environment}" class="label label-danger"></span>             
+                </div>                
+                </div>                
+                <div class="row">  <div class="col">   
+                    <label th:for="longitude">Localidades mais importantes no entorno do PEF: </label>
+                    <textarea type="text" class="form-control" id="main_zones" th:field="*{main_zones}"></textarea>
+                    <span th:if="${#fields.hasErrors('main_zones')}" th:errors="*{main_zones}" class="label label-danger"></span>             
+                </div>                
+                </div>                
+                <div class="row">  <div class="col">   
+                    <label th:for="longitude">Relacionamento com estrangeiros (BOL, PAR, outros): </label>
+                    <textarea type="text" class="form-control" id="foreign_relation" th:field="*{foreign_relation}"></textarea>
+                    <span th:if="${#fields.hasErrors('foreign_relation')}" th:errors="*{foreign_relation}" class="label label-danger"></span>             
+                </div>                
+                </div>                
+                <div class="row">  <div class="col">   
+                    <label th:for="longitude">Etta geral País Viz (cidade, vila, FA, Ap Saúde, Ap às compras, Ap Alimentos): </label>
+                    <textarea type="text" class="form-control" id="general_etta" th:field="*{general_etta}"></textarea>
+                    <span th:if="${#fields.hasErrors('general_etta')}" th:errors="*{general_etta}" class="label label-danger"></span>             
+                </div>                
+                </div>                
+                     
+<hr>
+         <div class="form-group">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+           
+        </form>
+        
+        
+        
+    </div>
+
+</div>
